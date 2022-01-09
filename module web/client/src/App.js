@@ -1,10 +1,18 @@
+import Accueil from './component/Accueil/Accueil';
 
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom"; 
+import Nav from 'component/Nav/Nav';
 
 function App() {
   return (
     <div className="App">
-      salut les jeunes
+    <BrowserRouter>
+      <Nav/>
+        <Routes>
+            <Route path="/day/:id" element={<Accueil />} />
+        </Routes>
+      </BrowserRouter>
+      
     </div>
   );
 }
