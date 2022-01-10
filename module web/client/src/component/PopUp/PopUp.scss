@@ -1,0 +1,63 @@
+body.active-popUp {
+    overflow-y: hidden;
+}
+
+
+
+.popUp, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+.popUp-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #fff;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px;
+    margin: auto;
+}
+
+.close-popUp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+}
+
+.google-popUp {
+    width: fit-content;
+    display: block;
+    margin: auto;
+    background-color: #ba4511;
+}
+
+input[type = submit]:hover {
+    background-color: #ba4511;
+}
+
+.input-co {
+    width: fit-content;
+    display: block;
+    padding: 10px;
+    margin: auto;
+} 
+
+input[type = image] {
+    width: 50px;
+    height: 50px;
+    float: right;
+}

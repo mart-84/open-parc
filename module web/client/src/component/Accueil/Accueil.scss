@@ -9,7 +9,7 @@
 }
 
 .billets-item{
-    width: 300px;
+    width: 600px;
     overflow: hidden;
     box-shadow: 0px 0px 15px -5px;
     transition: 0.3s;
@@ -19,4 +19,31 @@
         transform: scale(1.1);
         box-shadow: 0px 0px 15px 0px;
     }
+}
+
+.billet-info{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    justify-content: center
+
+
+}
+
+.billet-match{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.billet-prix{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.test{
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
 }

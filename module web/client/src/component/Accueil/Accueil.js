@@ -1,4 +1,3 @@
-import Nav from 'component/Nav/Nav';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import billets  from 'data/billets';
@@ -9,8 +8,11 @@ const DisplayBillets = () => { //mettre une maj car c'est un component => sinon 
     return billets.map((billets, index) => { //.map = tableau. Sorte de foreach qui retourne du html. le index donne la position dans le tableau 
         return <div key={index} className="billets-item">
             <h1>Court {billets.court}</h1>
-            <div>{billets.match.map((joueurs, i) => <p key={i}>{joueurs} {billets.heure}</p>)}</div>
-            <div>{billets.prix.map((joueurs, i) => <p key={i}>{joueurs}</p>)}</div>
+            <div className='billet-info'>
+                <div className='billet-match'>{billets.match.map((joueurs, i) => <p className='test'><div key={i} className='joueurs'>{joueurs}</div>  <div key={i} className='heure'>{billets.heure}</div></p>)}</div>
+                <div className='billet-prix'>{billets.prix.map((joueurs, i) => <p key={i}>{joueurs}</p>)}</div>
+            </div>
+            
             
         </div>
     })
