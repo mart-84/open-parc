@@ -1,3 +1,4 @@
+import PopUp from 'component/PopUp/PopUp';
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import './Nav.scss';
@@ -14,6 +15,7 @@ const Nav = () => {
                 <NavLink exact to="/day/vendredi" className={({ isActive }) => isActive ? "red" : "blue"}>Vendredi</NavLink>
                 <NavLink exact to="/day/samedi" className={({ isActive }) => isActive ? "red" : "blue"}>Samedi</NavLink>
                 <NavLink exact to="/day/dimanche2" className={({ isActive }) => isActive ? "red" : "blue"}>Dimanche</NavLink>
+                <PopUp/>
             </nav>
         </div>
     );
