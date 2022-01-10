@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Billet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -11,9 +12,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Billet|null findOneBy(array $criteria, array $orderBy = null)
  * @method Billet[]    findAll()
  * @method Billet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * 
  */
 class BilletRepository extends ServiceEntityRepository
 {
+    
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Billet::class);
@@ -35,6 +38,21 @@ class BilletRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+    * @return Billet[] Returns an array of Billet objects
+    */
+    public function findByDay($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.jourId = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?Billet
@@ -47,16 +65,5 @@ class BilletRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function getBilletsParJour(string $jour)
-    {
-        $conn = $this->getEntityManager()->getConnection();
-        //le front end devra passer l'id du jour en paramètre
-        $sql ='SELECT * FROM billet WHERE jourId=:jour';
-        $statement = $conn->prepare($sql);
-        $result=$statement->executeStatement(['jour'=>$jour]);
-
-        
-        
-        return $result;
-    }
+    
 }
