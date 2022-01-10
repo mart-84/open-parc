@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+app_billetterie:
+    path: /billetterie/triParJours/{day}git
+    controller: App\Controller\triParJours::recupBillet
