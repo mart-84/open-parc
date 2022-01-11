@@ -44,9 +44,8 @@ class BilletRepository extends ServiceEntityRepository
     public function findByDay($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.jourId = :val')
+            ->andWhere('b.jourid = :val')
             ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
             ->setMaxResults(100)
             ->getQuery()
             ->getResult()

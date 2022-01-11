@@ -15,14 +15,16 @@ class triParJours extends AbstractController
     {
        
        
-        
-        $billets=$doctrine->getRepository(Billet::class)->findByDay($day);
+        /** @var BilletRepository $billetRepository */
+        $billetRepository=$doctrine->getRepository(Billet::class);
+        $billets=$billetRepository->findByDay($day);
         foreach($billets as $billet) {
             echo "Prix du seul billet du jour 5: ".$billet->getPrix()."";
         }
         
 
-
+        
+        
         return new Response('<body>Bonjour '.$day.'</body>');
     }
 
