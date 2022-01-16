@@ -19,5 +19,14 @@ class JouerRepository extends ServiceEntityRepository
         parent::__construct($registry, Jouer::class);
     }
 
-    
+    public function findByMatch($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.matchid = :val')
+            ->setParameter('val', $value)
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Matchs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,19 +23,18 @@ class MatchsRepository extends ServiceEntityRepository
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByDay($value)
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.jourid = :val')
             ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('b.matchid','ASC')
+            ->setMaxResults(100)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Matchs
