@@ -41,6 +41,9 @@ public enum Court {
 		default: 	return null;
 		}
 	}
-   
+	
+	public String toString() {
+		return nom;
+	}
 
 }
