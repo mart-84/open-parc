@@ -39,5 +39,8 @@ public enum TrancheHoraire {
 		}
 	}
 	
+	public String toString() {
+		return heureDebut + "h/" + (heureDebut + 2) + "h";
+	}
 
 }

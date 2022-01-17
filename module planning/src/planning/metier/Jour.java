@@ -47,5 +47,9 @@ public enum Jour {
 		default: 	return null;
 		}
 	}
+	
+	public String toString() {
+		return this.nom;
+	}
 
 }
