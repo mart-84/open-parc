@@ -29,4 +29,18 @@ class JouerRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findByPlayer($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b.matchid')
+            ->andWhere('b.joueurid = :val')
+            ->setParameter('val', $value)
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    
 }

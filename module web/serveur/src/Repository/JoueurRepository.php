@@ -19,6 +19,19 @@ class JoueurRepository extends ServiceEntityRepository
         parent::__construct($registry, Joueur::class);
     }
 
+    public function findByNomPrenom($nom, $prenom)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('UPPER(b.nomjoueur) = :name')
+            ->andWhere('UPPER(b.prenomjoueur) = :last_name')
+            ->setParameter('name', $nom)
+            ->setParameter('last_name', $prenom)
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Joueur[] Returns an array of Joueur objects
     //  */

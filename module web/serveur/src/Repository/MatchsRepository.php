@@ -34,6 +34,19 @@ class MatchsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findByplayerId($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.jourid = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.matchid','ASC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     
 
     /*
