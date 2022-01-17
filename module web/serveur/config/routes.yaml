@@ -4,3 +4,7 @@
 app_billetterie:
     path: /billetterie/triParJours/{day}
     controller: App\Controller\triParJours::recupBillet
+
+app_billetterie_joueur:
+    path: /billetterie/triParJoueur/{player}
+    controller: App\Controller\triParJoueur::recupBilletJoueur
