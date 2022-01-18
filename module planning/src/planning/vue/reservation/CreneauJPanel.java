@@ -1,18 +1,17 @@
 package planning.vue.reservation;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.util.List;
 
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-
 import javax.swing.Box;
-import java.awt.Dimension;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import planning.metier.Creneau;
 import planning.metier.TrancheHoraire;

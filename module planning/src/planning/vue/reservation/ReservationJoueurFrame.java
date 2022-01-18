@@ -1,17 +1,6 @@
 package planning.vue.reservation;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import org.mariadb.jdbc.MariaDbDataSource;
-
-import planning.dao.mariadb.MariaDbDataSourceDao;
-import planning.metier.Jour;
-
-import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -19,8 +8,17 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.SwingConstants;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import org.mariadb.jdbc.MariaDbDataSource;
+
+import planning.dao.mariadb.MariaDbDataSourceDao;
+import planning.metier.Jour;
 
 public class ReservationJoueurFrame extends JFrame {
 

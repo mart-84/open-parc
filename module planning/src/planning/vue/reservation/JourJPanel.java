@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.sql.Connection;
 import java.util.List;
 
-import javax.sql.DataSource;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;

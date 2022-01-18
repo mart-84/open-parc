@@ -2,28 +2,25 @@ package planning.vue.reservation;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import planning.dao.ReservationDaoSql;
 import planning.dao.interfacedao.IReservationDAO;
 import planning.metier.Creneau;
 import planning.metier.Reservation;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 
 public class NomReservationDialog extends JDialog {
 
