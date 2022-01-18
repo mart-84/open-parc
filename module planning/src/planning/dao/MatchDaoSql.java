@@ -41,7 +41,7 @@ public class MatchDaoSql implements IMatchDao {
 		ResultSet rset = null;
 		Statement stmt = null;
 		List<Match> listMatchs = null;
-		String query = "SELECT matchid, courtid, jourid, typetournoiid, trancheid FROM matchs";
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs";
 		Match match;
 		
 		try {
@@ -69,14 +69,14 @@ public class MatchDaoSql implements IMatchDao {
 	@Override
 	public void addMatch(Match match) {
 		PreparedStatement stmt;
-		String query = "INSERT INTO matchs(matchid, courtid, jourid, typetournoiid, trancheid) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO matchs(matchid, typetournoiid, courtid, jourid, trancheid) VALUES (?, ?, ?, ?, ?)";
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, match.getMatchId());
-			stmt.setInt(2, match.getCourtId());
-			stmt.setInt(3, match.getJourId());
-			stmt.setInt(4, match.getTypeTournoiId());
-			stmt.setInt(5, match.getTrancheId());
+			stmt.setInt(2, match.getTypeTournoiId());
+			stmt.setInt(3, match.getCreneau().getCourt().getCourtId());
+			stmt.setInt(4, match.getCreneau().getJour().getJourId());
+			stmt.setInt(5, match.getCreneau().getTranche().getTrancheId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
             Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +102,7 @@ public class MatchDaoSql implements IMatchDao {
 	public Match getById(int numMatch) {
 		ResultSet rset = null;
 		PreparedStatement stmt = null;
-		String query = "SELECT matchid, courtid, jourid, typetournoiid, trancheid FROM matchs WHERE matchid = ?";
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid = ?";
 		Match match = null;
 		
 		try {
@@ -124,7 +124,7 @@ public class MatchDaoSql implements IMatchDao {
 	public List<Match> getByJoueur(Joueur joueur) {
 		ResultSet rset = null;
 		PreparedStatement stmt = null;
-		String query = "SELECT matchid, courtid, jourid, typetournoiid, trancheid FROM matchs WHERE matchid IN (SELECT matchid FROM jouer WHERE joueurid = ?";
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid IN (SELECT matchid FROM jouer WHERE joueurid = ?";
 		List<Match> listMatchs = null;
 		Match match = null;
 		
@@ -149,7 +149,7 @@ public class MatchDaoSql implements IMatchDao {
 	public List<Match> getByJour(Jour jour) {
 		ResultSet rset = null;
 		PreparedStatement stmt = null;
-		String query = "SELECT matchid, courtid, jourid, typetournoiid, trancheid FROM matchs WHERE jourid  = ?";
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE jourid  = ?";
 		List<Match> listMatchs = null;
 		Match match = null;
 		
@@ -174,7 +174,7 @@ public class MatchDaoSql implements IMatchDao {
 	public List<Match> getByCourt(Court court) {
 		ResultSet rset = null;
 		PreparedStatement stmt = null;
-		String query = "SELECT matchid, courtid, jourid, typetournoiid, trancheid FROM matchs WHERE courtid  = ?";
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE courtid  = ?";
 		List<Match> listMatchs = null;
 		Match match = null;
 		

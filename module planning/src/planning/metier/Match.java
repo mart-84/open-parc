@@ -10,46 +10,37 @@ import java.util.*;
 
 public class Match {
    private int matchId;
-   private int courtId;
-   private int jourId;
    private int typeTournoiId;
-   private int trancheId;
+   private Creneau creneau;
    
-	public Match(int matchId, int courtId, int jourId, int typeTournoiId, int trancheId) {
-		super();
+	public Match(int matchId, int typeTournoiId, Creneau creneau) {
 		this.matchId = matchId;
-		this.courtId = courtId;
-		this.jourId = jourId;
 		this.typeTournoiId = typeTournoiId;
-		this.trancheId = trancheId;
+		this.creneau = creneau;
 	}
 
+	public Match(int matchId, int typeTournoiId, int jourId, int trancheId, int courtId) {
+		this.matchId = matchId;
+		this.typeTournoiId = typeTournoiId;
+		this.creneau = new Creneau(Jour.getJourById(jourId), TrancheHoraire.getTrancheById(trancheId), Court.getCourtById(courtId));
+	}
+	
 	public int getMatchId() {
 		return matchId;
-	}
-
-	public int getCourtId() {
-		return courtId;
-	}
-
-	public int getJourId() {
-		return jourId;
 	}
 
 	public int getTypeTournoiId() {
 		return typeTournoiId;
 	}
 
-	public int getTrancheId() {
-		return trancheId;
+	public Creneau getCreneau() {
+		return creneau;
 	}
 
 	@Override
 	public String toString() {
-		return "Match -> matchId : " + matchId + ", courtId : " + courtId + ", jourId : " + jourId
-				+ ", typeTournoiId : " + typeTournoiId + ", trancheId : " + trancheId;
+		return "Match -> matchId : " + matchId + ", typeTournoiId : " + typeTournoiId + ", creneau : " + creneau;
 	}
-	
-	
 
+	
 }

@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.reservation;
 
 import java.awt.EventQueue;
 
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 
-public class ReservationJoueur extends JFrame {
+public class ReservationJoueurFrame extends JFrame {
 
 	private JPanel contentPane;
 	private static MariaDbDataSource dataSourceDAO;
@@ -38,7 +38,7 @@ public class ReservationJoueur extends JFrame {
 					dataSourceDAO = MariaDbDataSourceDao.getMariaDBDataSourceDAO();
 					connexionBD = dataSourceDAO.getConnection();
 
-					ReservationJoueur frame = new ReservationJoueur();
+					ReservationJoueurFrame frame = new ReservationJoueurFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,9 +50,8 @@ public class ReservationJoueur extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ReservationJoueur() {
+	public ReservationJoueurFrame() {
 		this.createPanel();
-		this.createTitle();
 	}
 
 	private void createTitle() {
@@ -69,7 +68,6 @@ public class ReservationJoueur extends JFrame {
 		this.repaint();
 		this.createPanel();
 		this.createTitle();
-		System.out.println("refresh");
 	}
 	
 	private void createPanel() {
@@ -81,6 +79,7 @@ public class ReservationJoueur extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		createTitle();
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 109, 956, 523);
@@ -106,11 +105,10 @@ public class ReservationJoueur extends JFrame {
 	private void quitter() {
 		try {
 			connexionBD.close();
-
 			System.out.println("Connexion à la BD terminée");
 			System.exit(0);
 		} catch (SQLException ex) {
-			Logger.getLogger(ReservationJoueur.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ReservationJoueurFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 }

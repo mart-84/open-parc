@@ -22,7 +22,7 @@ public class CreneauDaoSql implements ICreneauDAO {
 	private Connection connexionBD;
 	
 	private static final String baseQuery =  "SELECT jourId, trancheId, courtId FROM jour, tranchehoraire, court "
-			+ "WHERE (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM matchs) "
+			+ "WHERE (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM matchs WHERE NOT (jourid IS NULL OR courtid IS NULL OR trancheid IS NULL)) "
 			+ "AND (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM reservation) ";
 	
 	@Override

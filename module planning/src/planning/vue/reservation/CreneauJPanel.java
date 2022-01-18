@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.reservation;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -24,10 +24,10 @@ public class CreneauJPanel extends JPanel {
 	 */
 	private TrancheHoraire heure;
 	private List<Creneau> listCreneau;
-	private ReservationJoueur mainFrame;
+	private ReservationJoueurFrame mainFrame;
 	private Connection connection;
 	
-	public CreneauJPanel(TrancheHoraire heure, List<Creneau> listCreneau, Connection connection, ReservationJoueur mainFrame) {
+	public CreneauJPanel(TrancheHoraire heure, List<Creneau> listCreneau, Connection connection, ReservationJoueurFrame mainFrame) {
 		this.heure = heure;
 		this.listCreneau = listCreneau;
 		this.connection = connection;

@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.reservation;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -15,6 +15,8 @@ import planning.metier.Creneau;
 import planning.metier.Reservation;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,15 +25,15 @@ import java.sql.Connection;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
-public class NomReservation extends JDialog {
+public class NomReservationDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNom;
 	private Creneau creneau;
 	private IReservationDAO reservationDAO;
-	private ReservationJoueur mainFrame;
+	private ReservationJoueurFrame mainFrame;
 
-	public NomReservation(Creneau creneau, Connection connection, ReservationJoueur mainFrame) {
+	public NomReservationDialog(Creneau creneau, Connection connection, ReservationJoueurFrame mainFrame) {
 		this.creneau = creneau;
 		this.mainFrame = mainFrame;
 		this.reservationDAO = new ReservationDaoSql();
@@ -42,7 +44,7 @@ public class NomReservation extends JDialog {
 	private void createPanel() {
 		setTitle("R\u00E9server un entrainement");
 		setBounds(100, 100, 477, 215);
-		this.setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,7 +59,7 @@ public class NomReservation extends JDialog {
 		contentPanel.add(lblEntrezUnNom);
 
 		txtNom = new JTextField();
-		txtNom.setToolTipText(creneau.toString());
+		txtNom.setToolTipText("Entrez un nom pour la réservation");
 		txtNom.setBounds(75, 90, 304, 28);
 		contentPanel.add(txtNom);
 		txtNom.setColumns(10);
@@ -82,7 +84,7 @@ public class NomReservation extends JDialog {
 				// mettre à jour l'affichage de la page principale
 				mainFrame.updatePanel();
 				
-				
+				JOptionPane.showMessageDialog(contentPanel, "La réservation a bien été enregistrée au nom de " + nomJoueur, "Réservation effectuée", JOptionPane.INFORMATION_MESSAGE);
 				
 				dispose();
 			}

@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.reservation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +15,9 @@ import planning.metier.Creneau;
 public class ReservationJButton extends JButton {
 
 	private ICreneauDAO creneauDAO;
-	private ReservationJoueur mainFrame;
+	private ReservationJoueurFrame mainFrame;
 	
-	public ReservationJButton(Creneau creneau, Connection connection, ReservationJoueur mainFrame) {
+	public ReservationJButton(Creneau creneau, Connection connection, ReservationJoueurFrame mainFrame) {
 		super(creneau.getCourt().getNom());
 		this.mainFrame = mainFrame;
 		this.creneauDAO = new CreneauDaoSql();
@@ -27,7 +27,7 @@ public class ReservationJButton extends JButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NomReservation dialogNom = new NomReservation(creneau, connection, mainFrame);  
+				NomReservationDialog dialogNom = new NomReservationDialog(creneau, connection, mainFrame);  
 				dialogNom.setVisible(true);
 			}
 			
