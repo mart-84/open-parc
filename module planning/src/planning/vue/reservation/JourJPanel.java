@@ -1,10 +1,9 @@
-package planning.vue;
+package planning.vue.reservation;
 
 import java.awt.Component;
 import java.sql.Connection;
 import java.util.List;
 
-import javax.sql.DataSource;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -22,10 +21,10 @@ public class JourJPanel extends JPanel {
 	 */
 	private Jour jour;
 	private ICreneauDAO creneauDAO;
-	private ReservationJoueur mainFrame;
+	private ReservationJoueurFrame mainFrame;
 	private Connection connection;
 	
-	public JourJPanel(Jour jour, Connection connection, ReservationJoueur mainFrame) {
+	public JourJPanel(Jour jour, Connection connection, ReservationJoueurFrame mainFrame) {
 		this.jour = jour;
 		this.mainFrame = mainFrame;
 		this.connection = connection;

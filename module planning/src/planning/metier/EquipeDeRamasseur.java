@@ -6,7 +6,6 @@
 
 package planning.metier;
 
-import java.util.*;
 
 public class EquipeDeRamasseur {
    private int equipeRamasseursId;

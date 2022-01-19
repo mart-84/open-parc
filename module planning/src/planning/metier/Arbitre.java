@@ -5,8 +5,6 @@
  ***********************************************************************/
 package planning.metier;
 
-import java.util.*;
-
 public class Arbitre {
    private int arbitreId;
    private String nom;
