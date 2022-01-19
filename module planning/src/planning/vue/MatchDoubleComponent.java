@@ -10,20 +10,26 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import java.awt.BorderLayout;
 
-public class MatchDoubleComponent extends JPanel {
+public class MatchDoubleComponent extends MatchComponent {
 
 	/**
 	 * Create the panel.
 	 */
 	public MatchDoubleComponent() {
-		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setMinimumSize(new Dimension(140, 45));
-		setMaximumSize(new Dimension(140, 45));
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		createPanel();
+	}
+	
+	protected void createPanel() {
+		setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		add(panel);
 		
 		JPanel joueursPanel = new JPanel();
-		add(joueursPanel);
+		panel.add(joueursPanel);
 		joueursPanel.setLayout(new BoxLayout(joueursPanel, BoxLayout.Y_AXIS));
 		
 		JLabel Joueur1Label = new JLabel("Joueur 1 - Joueur 2");
@@ -37,7 +43,7 @@ public class MatchDoubleComponent extends JPanel {
 		joueursPanel.add(Joueur2Label);
 		
 		JPanel datePanel = new JPanel();
-		add(datePanel);
+		panel.add(datePanel);
 		datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.Y_AXIS));
 		
 		JLabel dateLabel = new JLabel("14/04");

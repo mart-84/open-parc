@@ -13,10 +13,20 @@ import javax.swing.border.LineBorder;
 
 public class MatchComponent extends JPanel {
 
+	private int idMatch;
+	
+	public void setIdMatch(int idMatch) {
+		this.idMatch = idMatch;
+	}
+
 	/**
 	 * Create the panel.
 	 */
 	public MatchComponent() {
+		createPanel();
+	}
+	
+	protected void createPanel() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setMinimumSize(new Dimension(140, 45));
 		setMaximumSize(new Dimension(140, 45));
@@ -47,7 +57,6 @@ public class MatchComponent extends JPanel {
 		heureLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		heureLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		datePanel.add(heureLabel);
-
 	}
 
 }

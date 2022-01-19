@@ -8,10 +8,14 @@ package planning.metier;
 
 
 public class Match {
-   private int matchId;
-   private int typeTournoiId;
-   private Creneau creneau;
+	private int matchId;
+   	private int typeTournoiId;
+   	private Creneau creneau;
    
+   	public Match() {
+   		
+   	}
+   	
 	public Match(int matchId, int typeTournoiId, Creneau creneau) {
 		this.matchId = matchId;
 		this.typeTournoiId = typeTournoiId;

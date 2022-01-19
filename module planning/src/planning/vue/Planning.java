@@ -19,7 +19,7 @@ public class Planning {
 		try {
 			Connection connexion = dataSource.getConnection();
 			IMatchDao matchDao = new MatchDaoSql(connexion);
-			Match match = new Match(2,1,1,1,1);
+			Match match = new Match();
 			match = matchDao.getById(1);
 			System.out.println(match);
 			//List<Match> listMatchs = matchDao.getMatchs();
