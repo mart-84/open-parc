@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-//TODO NEXT : TRI PAR JOUEUR
+//TODO NEXT : TRI PAR JOUEUR ,nj
 
 class triParJoueur extends AbstractController
 {
