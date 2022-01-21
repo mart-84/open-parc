@@ -25,8 +25,8 @@ const PopUp = () => {
                 <div className="popUp-content">
                     <h2>Rechercher un joueur</h2>
                     <div className="input-co"><input type="text" placeholder="Prénom"/></div>
-                    <div className="input-co"><input type="password" placeholder="Nom"/></div>
-                    <div className="input-co"><input type="submit" placeholder="Rechercher"/></div>
+                    <div className="input-co"><input type="text" placeholder="Nom"/></div>
+                    <div className="input-co"><button type='submit'>Rechercher</button></div>
                     <button className="close-popUp" onClick={togglePupUp}> X
                     </button>
                 </div>
