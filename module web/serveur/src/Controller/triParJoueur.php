@@ -14,8 +14,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-//TODO NEXT : TRI PAR JOUEUR ,nj
-
 class triParJoueur extends AbstractController
 {
     public function recupBilletJoueur(ManagerRegistry $doctrine, string $player) : Response

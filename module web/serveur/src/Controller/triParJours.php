@@ -14,8 +14,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-//TODO NEXT : TRI PAR JOUEUR
-
 class triParJours extends AbstractController
 {
     public function recupBillet(ManagerRegistry $doctrine, int $day) : Response
