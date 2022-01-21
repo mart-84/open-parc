@@ -19,6 +19,7 @@ public class MatchComponentData {
 		matchC.setLocation(point);
 		matchC.setSize(dim);
 		matchC.setIdMatch(id);
+		matchC.createPanel();
 	}
 	
 	

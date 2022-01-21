@@ -18,7 +18,8 @@ public class Planning {
 		
 		try {
 			Connection connexion = dataSource.getConnection();
-			IMatchDao matchDao = new MatchDaoSql(connexion);
+			IMatchDao matchDao = new MatchDaoSql();
+			matchDao.setConnection(connexion);
 			Match match = new Match();
 			match = matchDao.getById(1);
 			System.out.println(match);

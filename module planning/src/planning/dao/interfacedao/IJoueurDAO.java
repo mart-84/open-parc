@@ -1,0 +1,21 @@
+package planning.dao.interfacedao;
+
+import java.sql.Connection;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import planning.metier.Joueur;
+import planning.metier.Jour;
+import planning.metier.Match;
+import planning.metier.TrancheHoraire;
+
+public interface IJoueurDAO {
+	public void 			setDataSource(DataSource ds);
+	public void 			setConnection(Connection connexionBD);
+	public Joueur			getById(int idJoueur);
+	public List<Joueur>		getByMatch(Match match);
+	public List<Joueur>		getJoueurs();
+	public void				addMatch(Joueur joueur, Match match);
+	public List<Joueur> 	getJoueursDispo(Jour jour, TrancheHoraire tranche);
+}

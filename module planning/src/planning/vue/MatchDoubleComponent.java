@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.sql.Connection;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -17,11 +18,12 @@ public class MatchDoubleComponent extends MatchComponent {
 	/**
 	 * Create the panel.
 	 */
-	public MatchDoubleComponent() {
+	public MatchDoubleComponent(Connection connection) {
+		super(connection);
 		createPanel();
 	}
 	
-	protected void createPanel() {
+	public void createPanel() {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();

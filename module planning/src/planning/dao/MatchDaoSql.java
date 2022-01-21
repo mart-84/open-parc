@@ -17,11 +17,7 @@ import planning.metier.Match;
 public class MatchDaoSql implements IMatchDao {
 
 	private Connection connexionBD;
-	
-	public MatchDaoSql(Connection connexionBD) {
-		this.connexionBD = connexionBD;
-	}
-	
+		
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		try {

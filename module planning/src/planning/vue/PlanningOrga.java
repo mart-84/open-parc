@@ -29,7 +29,7 @@ import planning.vue.reservation.ReservationJoueurFrame;
 public class PlanningOrga extends JFrame {
 
 	private JPanel contentPane;
-	private final Dimension matchDimension = new Dimension(98, 42);
+	private final Dimension matchDimension = new Dimension(140, 40);
 	private final Dimension matchDoubleDimension = new Dimension(158, 42);
 	
 	private static MariaDbDataSource dataSourceDAO;
@@ -110,7 +110,7 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(12, new Point(958, 408), matchDimension));
 	
 		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchComponent();
+			MatchComponent matchC = new MatchComponent(connexionBD);
 			matchComponentData.setUpMatchComponent(matchC);
 			qualificationPanel.add(matchC);
 		}
@@ -153,7 +153,7 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(131, new Point(623, 201), matchDimension));
                   
 		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchComponent();
+			MatchComponent matchC = new MatchComponent(connexionBD);
 			matchComponentData.setUpMatchComponent(matchC);
 			tournoiSimplePanel.add(matchC);
 		}
@@ -185,7 +185,7 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(215, new Point(612, 184), matchDoubleDimension));
 		
 		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchDoubleComponent();
+			MatchComponent matchC = new MatchDoubleComponent(connexionBD);
 			matchComponentData.setUpMatchComponent(matchC);
 			tournoiDoublePanel.add(matchC);
 		}
