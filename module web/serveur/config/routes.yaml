@@ -8,3 +8,7 @@ app_billetterie:
 app_billetterie_joueur:
     path: /billetterie/triParJoueur/{player}
     controller: App\Controller\triParJoueur::recupBilletJoueur
+    
+app_liste_joueur:
+    path: /billetterie/liste_joueur
+    controller: App\Controller\joueurController::recupJoueur
