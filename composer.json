@@ -1,0 +1,10 @@
+{
+    "name": "naelj/open-parc",
+    "authors": [
+        {
+            "name": "Naël",
+            "email": "nael.juston@etu.univ-lyon1.fr"
+        }
+    ],
+    "require": {}
+}

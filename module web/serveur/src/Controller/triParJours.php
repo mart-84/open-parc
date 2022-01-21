@@ -45,6 +45,7 @@ class triParJours extends AbstractController
                 'matchid'=>(int)$match->getMatchId(),
                 'matchtype'=>(int)$match->getTypetournoiid(),
                 'matchcourtid'=>(int)$match->getCourtId(),
+                'matchtrancheid'=>(int)$match->getTrancheid(),
                 'matchcourt'=>(string)'',
                 'joueursId'=>[],
                 'joueursNoms'=>[],
