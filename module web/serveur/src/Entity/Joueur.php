@@ -35,6 +35,13 @@ class Joueur
      */
     private $prenomjoueur;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nationaliteJoueur", type="string", length=254, nullable=true)
+     */
+    private $nationaliteJoueur;
+
     public function getJoueurid(): ?int
     {
         return $this->joueurid;
@@ -64,5 +71,17 @@ class Joueur
         return $this;
     }
 
+    public function getNationaliteJoueur(): ?string
+    {
+        return $this->nationaliteJoueur;
+    }
+
+    public function setNationaliteJoueur(?string $nationaliteJoueur): self
+    {
+        $this->nationaliteJoueur = $nationaliteJoueur;
+
+        return $this;
+    }
+    
 
 }

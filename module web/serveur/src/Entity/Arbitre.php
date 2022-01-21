@@ -42,6 +42,13 @@ class Arbitre
      */
     private $categorie;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nationaliteArbitre", type="string", length=254, nullable=true)
+     */
+    private $nationaliteArbitre;
+
     public function getArbitreid(): ?int
     {
         return $this->arbitreid;
@@ -79,6 +86,18 @@ class Arbitre
     public function setCategorie(?string $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getNationaliteArbitre(): ?string
+    {
+        return $this->nationaliteArbitre;
+    }
+
+    public function setNationaliteArbitre(?string $nationaliteArbitre): self
+    {
+        $this->nationaliteArbitre = $nationaliteArbitre;
 
         return $this;
     }
