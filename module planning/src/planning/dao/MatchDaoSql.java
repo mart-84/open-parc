@@ -1,6 +1,10 @@
 package planning.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -8,13 +12,13 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import planning.dao.interfacedao.IMatchDao;
+import planning.dao.interfacedao.IMatchDAO;
 import planning.metier.Court;
 import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
 
-public class MatchDaoSql implements IMatchDao {
+public class MatchDaoSql implements IMatchDAO {
 
 	private Connection connexionBD;
 		

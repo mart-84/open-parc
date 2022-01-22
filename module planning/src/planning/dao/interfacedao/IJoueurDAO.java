@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import planning.metier.Creneau;
 import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
@@ -18,4 +19,5 @@ public interface IJoueurDAO {
 	public List<Joueur>		getJoueurs();
 	public void				addMatch(Joueur joueur, Match match);
 	public List<Joueur> 	getJoueursDispo(Jour jour, TrancheHoraire tranche);
+	public boolean			checkJoueurDispo(Joueur joueur, Creneau creneau, Match match);
 }

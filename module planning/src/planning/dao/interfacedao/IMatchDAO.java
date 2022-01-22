@@ -2,6 +2,7 @@ package planning.dao.interfacedao;
 
 import java.sql.Connection;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 import planning.metier.Court;
@@ -9,7 +10,7 @@ import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
 
-public interface IMatchDao {
+public interface IMatchDAO {
 	public void 			setDataSource(DataSource ds);
 	public void 			setConnection(Connection connexionBD);
 	public List<Match> 		getMatchs();

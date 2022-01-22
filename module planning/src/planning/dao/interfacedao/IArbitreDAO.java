@@ -18,4 +18,5 @@ public interface IArbitreDAO {
 	public List<Arbitre> 	getArbitres();
 	public List<Arbitre> 	getArbitresDispo(Jour jour, TrancheHoraire tranche);
 	public void 			addMatch(Match match);
+	public int[]			getNombreMatchArbitre(Arbitre arbitre);
 }

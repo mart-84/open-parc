@@ -140,4 +140,38 @@ public class ArbitreDaoSql implements IArbitreDAO {
 		return arbitre;
 	}
 
+	@Override
+	public int[] getNombreMatchArbitre(Arbitre arbitre) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String querySimple = "SELECT count(*) FROM matchs m JOIN arbitrer ar ON m.matchid = ar.matchId "
+				+ "WHERE m.typeTournoiId = 2 AND ar.arbitreid = ?"; // tournoi simple
+		String queryDouble = "SELECT count(*) FROM matchs m JOIN arbitrer ar ON m.matchid = ar.matchId "
+				+ "WHERE m.typeTournoiId = 3 AND ar.arbitreid = ?"; // tournoi double
+		int[] nombreMatch = {0, 0};
+		
+		try {
+			stmt = connexionBD.prepareStatement(querySimple);
+			stmt.setInt(1, arbitre.getArbitreId());
+			rset = stmt.executeQuery();
+			
+			if (rset.next()) {
+				nombreMatch[0] = rset.getInt(1);
+            }
+			
+
+			stmt = connexionBD.prepareStatement(queryDouble);
+			stmt.setInt(1, arbitre.getArbitreId());
+			rset = stmt.executeQuery();
+			
+			if (rset.next()) {
+				nombreMatch[1] = rset.getInt(1);
+            }
+		} catch (SQLException ex) {
+            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		
+		return nombreMatch;
+	}
+
 }

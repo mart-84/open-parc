@@ -19,7 +19,7 @@ import planning.dao.JoueurDaoSql;
 import planning.dao.MatchDaoSql;
 import planning.dao.interfacedao.IArbitreDAO;
 import planning.dao.interfacedao.IJoueurDAO;
-import planning.dao.interfacedao.IMatchDao;
+import planning.dao.interfacedao.IMatchDAO;
 import planning.metier.Arbitre;
 import planning.metier.Joueur;
 import planning.metier.Jour;
@@ -35,7 +35,7 @@ public class MatchComponent extends JPanel {
 	private List<Arbitre> listArbitres;
 	private List<Joueur> listJoueurs;
 	private Connection connection;
-	private IMatchDao matchDAO;
+	private IMatchDAO matchDAO;
 	private IJoueurDAO joueurDAO;
 	private IArbitreDAO arbitreDAO;
 	
@@ -69,7 +69,7 @@ public class MatchComponent extends JPanel {
 		
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				FormulaireMatchJFrame form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres);
+				FormulaireMatchJFrame form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres, connection);
 				form.setVisible(true);
 			}
 		});

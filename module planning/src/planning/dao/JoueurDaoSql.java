@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 import planning.dao.interfacedao.IJoueurDAO;
+import planning.metier.Creneau;
 import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
@@ -139,6 +140,35 @@ public class JoueurDaoSql implements IJoueurDAO {
 		}
 		
 		return listJoueurs;
+	}
+	
+
+
+	@Override
+	public boolean checkJoueurDispo(Joueur joueur, Creneau creneau, Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs "
+				+ "WHERE jourid = ? AND trancheid = ? "
+				+ "AND matchid IN (SELECT matchid FROM jouer WHERE joueurid = ?) "
+				+ "AND matchid != ?";
+		boolean isOk = true;
+		
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, creneau.getJour().getJourId());
+			stmt.setInt(2, creneau.getTranche().getTrancheId());
+			stmt.setInt(3, joueur.getJoueurId());
+			stmt.setInt(4, match.getMatchId());
+			rset = stmt.executeQuery();
+			
+			isOk = !rset.next();
+			
+		} catch (SQLException ex) {
+            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		
+		return isOk;
 	}
 
 }

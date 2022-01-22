@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import planning.dao.MatchDaoSql;
-import planning.dao.interfacedao.IMatchDao;
+import planning.dao.interfacedao.IMatchDAO;
 import planning.dao.mariadb.MariaDbDataSourceDao;
 import planning.metier.Match;
 
@@ -18,7 +18,7 @@ public class Planning {
 		
 		try {
 			Connection connexion = dataSource.getConnection();
-			IMatchDao matchDao = new MatchDaoSql();
+			IMatchDAO matchDao = new MatchDaoSql();
 			matchDao.setConnection(connexion);
 			Match match = new Match();
 			match = matchDao.getById(1);

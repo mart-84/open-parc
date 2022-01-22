@@ -162,4 +162,29 @@ public class CreneauDaoSql implements ICreneauDAO {
 		return listCreneau;
 	}
 
+	@Override
+	public boolean checkDispoCourt(Creneau creneau, int matchId) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT jourId, trancheId, courtId FROM jour, tranchehoraire, court "
+				+ "WHERE (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM matchs WHERE matchid != ? AND NOT (jourid IS NULL OR courtid IS NULL OR trancheid IS NULL)) "
+				+ "AND jourid = ? AND trancheid = ? AND courtid = ?";
+		boolean isOk = false;
+		
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, matchId);
+			stmt.setInt(2, creneau.getJour().getJourId());
+			stmt.setInt(3, creneau.getTranche().getTrancheId());
+			stmt.setInt(4, creneau.getCourt().getCourtId());
+			rset = stmt.executeQuery();
+			
+			isOk = rset.next();
+		} catch (SQLException ex) {
+            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		
+		return isOk;
+	}
+
 }

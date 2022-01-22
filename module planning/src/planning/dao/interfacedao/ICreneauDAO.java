@@ -21,4 +21,5 @@ public interface ICreneauDAO {
 	public List<Creneau>	getCreneaux(Court court);
 	public List<Creneau>	getCreneaux(Jour jour, Court court);
 	public List<Creneau>	getCreneaux(Jour jour, TrancheHoraire th);
+	public boolean			checkDispoCourt(Creneau creneau, int matchId);
 }
