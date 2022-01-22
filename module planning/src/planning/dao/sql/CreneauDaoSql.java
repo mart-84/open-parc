@@ -1,4 +1,4 @@
-package planning.dao;
+package planning.dao.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

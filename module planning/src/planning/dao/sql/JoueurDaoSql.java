@@ -1,4 +1,4 @@
-package planning.dao;
+package planning.dao.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -169,6 +169,78 @@ public class JoueurDaoSql implements IJoueurDAO {
         }
 		
 		return isOk;
+	}
+
+	@Override
+	public List<Joueur> getJoueursQualif() {
+		ResultSet rset = null;
+		Statement stmt = null;
+		List<Joueur> listJoueurs = null;
+		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE codetournoi = 1 OR codetournoi = 4";
+		Joueur joueur;
+		
+		try {
+			stmt = this.connexionBD.createStatement();
+			listJoueurs = new ArrayList<Joueur>();
+			rset = stmt.executeQuery(query);
+			
+			while (rset.next()) {
+				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
+				listJoueurs.add(joueur);
+            }
+		} catch(SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return listJoueurs;
+	}
+
+	@Override
+	public List<Joueur> getJoueursSimple() {
+		ResultSet rset = null;
+		Statement stmt = null;
+		List<Joueur> listJoueurs = null;
+		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE codetournoi = 2 OR codetournoi = 5";
+		Joueur joueur;
+		
+		try {
+			stmt = this.connexionBD.createStatement();
+			listJoueurs = new ArrayList<Joueur>();
+			rset = stmt.executeQuery(query);
+			
+			while (rset.next()) {
+				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
+				listJoueurs.add(joueur);
+            }
+		} catch(SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return listJoueurs;
+	}
+
+	@Override
+	public List<Joueur> getJoueursDouble() {
+		ResultSet rset = null;
+		Statement stmt = null;
+		List<Joueur> listJoueurs = null;
+		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE codetournoi = 3 OR codetournoi = 4 OR codetournoi = 5";
+		Joueur joueur;
+		
+		try {
+			stmt = this.connexionBD.createStatement();
+			listJoueurs = new ArrayList<Joueur>();
+			rset = stmt.executeQuery(query);
+			
+			while (rset.next()) {
+				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
+				listJoueurs.add(joueur);
+            }
+		} catch(SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return listJoueurs;
 	}
 
 }

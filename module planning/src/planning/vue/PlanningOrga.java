@@ -60,6 +60,12 @@ public class PlanningOrga extends JFrame {
 	public PlanningOrga() {
 		createPanel();
 	}
+	
+	public void updatePanel() {
+		this.revalidate();
+		this.repaint();
+		this.createPanel();
+	}
 
 	
 	private void createPanel() {
@@ -110,7 +116,7 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(12, new Point(958, 408), matchDimension));
 	
 		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchComponent(connexionBD);
+			MatchComponent matchC = new MatchComponent(connexionBD, this);
 			matchComponentData.setUpMatchComponent(matchC);
 			qualificationPanel.add(matchC);
 		}
@@ -153,7 +159,7 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(131, new Point(623, 201), matchDimension));
                   
 		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchComponent(connexionBD);
+			MatchComponent matchC = new MatchComponent(connexionBD, this);
 			matchComponentData.setUpMatchComponent(matchC);
 			tournoiSimplePanel.add(matchC);
 		}
@@ -185,7 +191,7 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(215, new Point(612, 184), matchDoubleDimension));
 		
 		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchDoubleComponent(connexionBD);
+			MatchComponent matchC = new MatchDoubleComponent(connexionBD, this);
 			matchComponentData.setUpMatchComponent(matchC);
 			tournoiDoublePanel.add(matchC);
 		}

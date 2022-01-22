@@ -1,4 +1,4 @@
-package planning.dao;
+package planning.dao.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import planning.dao.interfacedao.IArbitreDAO;
 import planning.metier.Arbitre;
+import planning.metier.Creneau;
 import planning.metier.Jour;
 import planning.metier.Match;
 import planning.metier.TrancheHoraire;
@@ -172,6 +173,33 @@ public class ArbitreDaoSql implements IArbitreDAO {
         }
 		
 		return nombreMatch;
+	}
+
+	@Override
+	public boolean checkArbitreDispo(Arbitre arbitre, Creneau creneau, Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs "
+				+ "WHERE jourid = ? AND trancheid = ? "
+				+ "AND matchid IN (SELECT matchid FROM arbitrer WHERE arbitreid = ?) "
+				+ "AND matchid != ?";
+		boolean isOk = true;
+		
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, creneau.getJour().getJourId());
+			stmt.setInt(2, creneau.getTranche().getTrancheId());
+			stmt.setInt(3, arbitre.getArbitreId());
+			stmt.setInt(4, match.getMatchId());
+			rset = stmt.executeQuery();
+			
+			isOk = !rset.next();
+			
+		} catch (SQLException ex) {
+            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		
+		return isOk;
 	}
 
 }

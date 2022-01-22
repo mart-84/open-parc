@@ -28,7 +28,7 @@ public enum TypeDeTournoi {
 		return nom;
 	}
 
-	public static TypeDeTournoi getTypeDeTournoiById(int id) {
+	public static TypeDeTournoi getById(int id) {
 		switch (id) {
 		case 1:		return QUALIFICATION;
 		case 2:		return SIMPLE;
@@ -38,7 +38,7 @@ public enum TypeDeTournoi {
 	}
 	
 	public String toString() {
-		return this.nom;
+		return "Tournoi " + this.nom;
 	}
 	
 }

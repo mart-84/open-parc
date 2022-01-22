@@ -8,8 +8,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import planning.dao.CreneauDaoSql;
 import planning.dao.interfacedao.ICreneauDAO;
+import planning.dao.sql.CreneauDaoSql;
 import planning.metier.Creneau;
 import planning.metier.Jour;
 import planning.metier.TrancheHoraire;

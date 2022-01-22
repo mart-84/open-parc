@@ -16,8 +16,8 @@ public class MatchDoubleComponent extends MatchComponent {
 	/**
 	 * Create the panel.
 	 */
-	public MatchDoubleComponent(Connection connection) {
-		super(connection);
+	public MatchDoubleComponent(Connection connection, PlanningOrga mainFrame) {
+		super(connection, mainFrame);
 		createPanel();
 	}
 	

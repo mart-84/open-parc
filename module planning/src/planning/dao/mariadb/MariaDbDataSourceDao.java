@@ -16,7 +16,7 @@ public class MariaDbDataSourceDao extends MariaDbDataSource {
 			FileInputStream fichier = null;
 			try {
 				Properties prop = new Properties();
-				fichier = new FileInputStream(".\\src\\planning\\dao\\mariadb\\connexion.properties");
+				fichier = new FileInputStream(".\\connexion.properties");
 				prop.load(fichier);
 				dataSource = new MariaDbDataSourceDao ();
 				dataSource.setPortNumber(Integer.parseInt((prop.getProperty("port"))));

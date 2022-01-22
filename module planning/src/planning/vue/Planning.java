@@ -3,9 +3,9 @@ package planning.vue;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import planning.dao.MatchDaoSql;
 import planning.dao.interfacedao.IMatchDAO;
 import planning.dao.mariadb.MariaDbDataSourceDao;
+import planning.dao.sql.MatchDaoSql;
 import planning.metier.Match;
 
 

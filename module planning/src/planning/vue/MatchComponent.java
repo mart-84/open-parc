@@ -10,16 +10,17 @@ import java.sql.Connection;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import planning.dao.ArbitreDaoSql;
-import planning.dao.JoueurDaoSql;
-import planning.dao.MatchDaoSql;
 import planning.dao.interfacedao.IArbitreDAO;
 import planning.dao.interfacedao.IJoueurDAO;
 import planning.dao.interfacedao.IMatchDAO;
+import planning.dao.sql.ArbitreDaoSql;
+import planning.dao.sql.JoueurDaoSql;
+import planning.dao.sql.MatchDaoSql;
 import planning.metier.Arbitre;
 import planning.metier.Joueur;
 import planning.metier.Jour;
@@ -34,7 +35,6 @@ public class MatchComponent extends JPanel {
 	private List<Joueur> joueursMatch;
 	private List<Arbitre> listArbitres;
 	private List<Joueur> listJoueurs;
-	private Connection connection;
 	private IMatchDAO matchDAO;
 	private IJoueurDAO joueurDAO;
 	private IArbitreDAO arbitreDAO;
@@ -47,6 +47,13 @@ public class MatchComponent extends JPanel {
 	private void setData() {
 		match = matchDAO.getById(this.idMatch);
 		listJoueurs = joueurDAO.getJoueurs();
+		if (idMatch >= 1 && idMatch <= 12) {
+			listJoueurs = joueurDAO.getJoueursQualif();
+		} else if (idMatch >= 101 && idMatch <= 131) {
+			listJoueurs = joueurDAO.getJoueursSimple();
+		} else if (idMatch >= 201 && idMatch <= 215) {
+			listJoueurs = joueurDAO.getJoueursDouble();
+		}
 		listArbitres = arbitreDAO.getArbitres();
 		
 		joueursMatch = joueurDAO.getByMatch(this.match);
@@ -58,8 +65,7 @@ public class MatchComponent extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MatchComponent(Connection connection) {
-		this.connection = connection;
+	public MatchComponent(Connection connection, PlanningOrga mainFrame) {
 		this.matchDAO = new MatchDaoSql();
 		this.matchDAO.setConnection(connection);
 		this.joueurDAO = new JoueurDaoSql();
@@ -69,7 +75,12 @@ public class MatchComponent extends JPanel {
 		
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				FormulaireMatchJFrame form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres, connection);
+				FormulaireInfosMatch form;
+				if (matchDAO.isPremierTour(match)) {
+					form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres, connection, mainFrame);
+				} else {
+					form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres, connection, mainFrame);					
+				}
 				form.setVisible(true);
 			}
 		});
