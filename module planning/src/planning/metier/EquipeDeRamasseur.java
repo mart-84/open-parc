@@ -6,8 +6,16 @@
 
 package planning.metier;
 
-
 public class EquipeDeRamasseur {
-   private int equipeRamasseursId;
+	private int equipeRamasseursId;
+
+	public EquipeDeRamasseur(int equipeRamasseursId) {
+		super();
+		this.equipeRamasseursId = equipeRamasseursId;
+	}
+
+	public int getEquipeRamasseursId() {
+		return equipeRamasseursId;
+	}
 
 }

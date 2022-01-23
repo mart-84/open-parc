@@ -71,6 +71,7 @@ public class FormulaireMatchAvecJoueurJFrame extends FormulaireInfosMatch {
 					// si toutes les contraintes sont vérifiées
 					persisterDonnees();
 					mainFrame.updatePanel();
+					dispose(); 
 				}
 			}
 		});

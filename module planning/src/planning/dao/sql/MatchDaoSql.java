@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import planning.dao.interfacedao.IMatchDAO;
 import planning.metier.Arbitre;
 import planning.metier.Court;
+import planning.metier.EquipeDeRamasseur;
 import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
@@ -22,7 +23,7 @@ import planning.metier.Match;
 public class MatchDaoSql implements IMatchDAO {
 
 	private Connection connexionBD;
-		
+
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		try {
@@ -44,20 +45,20 @@ public class MatchDaoSql implements IMatchDAO {
 		List<Match> listMatchs = null;
 		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs";
 		Match match;
-		
+
 		try {
 			stmt = this.connexionBD.createStatement();
 			listMatchs = new ArrayList<Match>();
 			rset = stmt.executeQuery(query);
-			
+
 			while (rset.next()) {
 				match = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
 				listMatchs.add(match);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listMatchs;
 	}
 
@@ -74,8 +75,8 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(5, match.getCreneau().getTranche().getTrancheId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -88,8 +89,8 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(1, match.getMatchId());
 			n = stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return n == 1;
 	}
 
@@ -99,19 +100,19 @@ public class MatchDaoSql implements IMatchDAO {
 		PreparedStatement stmt = null;
 		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid = ?";
 		Match match = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, numMatch);
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
 				match = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
-            }
+			}
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return match;
 	}
 
@@ -119,24 +120,24 @@ public class MatchDaoSql implements IMatchDAO {
 	public List<Match> getByJoueur(Joueur joueur) {
 		ResultSet rset = null;
 		PreparedStatement stmt = null;
-		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid IN (SELECT matchid FROM jouer WHERE joueurid = ?";
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid IN (SELECT matchid FROM jouer WHERE joueurid = ?)";
 		List<Match> listMatchs = null;
 		Match match = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, joueur.getJoueurId());
 			listMatchs = new ArrayList<Match>();
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
 				match = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
 				listMatchs.add(match);
-            }
+			}
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return listMatchs;
 	}
 
@@ -147,21 +148,21 @@ public class MatchDaoSql implements IMatchDAO {
 		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE jourid  = ?";
 		List<Match> listMatchs = null;
 		Match match = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, jour.getJourId());
 			listMatchs = new ArrayList<Match>();
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
 				match = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
 				listMatchs.add(match);
-            }
+			}
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return listMatchs;
 	}
 
@@ -172,21 +173,21 @@ public class MatchDaoSql implements IMatchDAO {
 		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE courtid  = ?";
 		List<Match> listMatchs = null;
 		Match match = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, court.getCourtId());
 			listMatchs = new ArrayList<Match>();
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
 				match = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
 				listMatchs.add(match);
-            }
+			}
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return listMatchs;
 	}
 
@@ -196,17 +197,17 @@ public class MatchDaoSql implements IMatchDAO {
 		PreparedStatement stmt = null;
 		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchsuivant = ?";
 		boolean isPremierTour = true;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, match.getMatchId());
 			rset = stmt.executeQuery();
-			
+
 			isPremierTour = !rset.next();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return isPremierTour;
 	}
 
@@ -222,8 +223,8 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(4, match.getMatchId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -235,10 +236,10 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(1, match.getMatchId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
-	
+
 	@Override
 	public void ajouterJoueur(Match match, Joueur joueur) {
 		PreparedStatement stmt;
@@ -249,8 +250,8 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(2, joueur.getJoueurId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -262,8 +263,8 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(1, match.getMatchId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@Override
@@ -276,8 +277,92 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt.setInt(2, arbitre.getArbitreId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public void ajouterArbitresLigne(Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt;
+		String query = "SELECT arbitreid, nomarbitre, prenomarbitre, categorie, nationalite FROM arbitre "
+				+ "WHERE categorie = 'JAT2' AND arbitreId NOT IN (SELECT A.arbitreId FROM arbitre A JOIN arbitrer AR ON A.arbitreId = AR.arbitreId JOIN matchs M ON AR.matchId = M.matchId "
+				+ "WHERE categorie = 'JAT2' AND M.courtId = ? AND M.jourId = ? AND M.trancheId = ?)";
+		Arbitre arbitre = null;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getCreneau().getCourt().getCourtId());
+			stmt.setInt(2, match.getCreneau().getJour().getJourId());
+			stmt.setInt(3, match.getCreneau().getTranche().getTrancheId());
+
+			for (int i = 0; i < 8; i++) {
+				rset = stmt.executeQuery();
+
+				if (rset.next()) {
+					arbitre = new Arbitre(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
+							rset.getString(5));
+					this.ajouterArbitre(match, arbitre);
+				}
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public void enleverRamasseurs(Match match) {
+		PreparedStatement stmt;
+		String query = "DELETE FROM ramasser WHERE matchid = ?";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public void ajouterRamasseurs(Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt;
+		String query = "SELECT E.equipeRamasseursId FROM equipederamasseur E "
+				+ "WHERE equipeRamasseursId NOT IN (SELECT R.equipeRamasseursId FROM equipederamasseur R JOIN ramasser RR ON R.equipeRamasseursId = RR.equipeRamasseursId JOIN matchs M ON RR.matchId = M.matchId "
+				+ "WHERE M.courtId = ? AND M.jourId = ? AND M.trancheId = ?)";
+		EquipeDeRamasseur equipeDeRamasseur = null;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getCreneau().getCourt().getCourtId());
+			stmt.setInt(2, match.getCreneau().getJour().getJourId());
+			stmt.setInt(3, match.getCreneau().getTranche().getTrancheId());
+
+			for (int i = 0; i < 2; i++) {
+				rset = stmt.executeQuery();
+
+				if (rset.next()) {
+					equipeDeRamasseur = new EquipeDeRamasseur(rset.getInt(1));
+					this.ajouterRamasseur(match, equipeDeRamasseur);
+				}
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public void ajouterRamasseur(Match match, EquipeDeRamasseur equipeDeRamasseur) {
+		PreparedStatement stmt;
+		String query = "INSERT INTO ramasser(matchid, equipeRamasseursId) VALUES (?, ?)";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			stmt.setInt(2, equipeDeRamasseur.getEquipeRamasseursId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 }

@@ -6,16 +6,15 @@
 
 package planning.metier;
 
-
 public class Match {
 	private int matchId;
-   	private int typeTournoiId;
-   	private Creneau creneau;
-   
-   	public Match() {
-   		
-   	}
-   	
+	private int typeTournoiId;
+	private Creneau creneau;
+
+	public Match() {
+
+	}
+
 	public Match(int matchId, int typeTournoiId, Creneau creneau) {
 		this.matchId = matchId;
 		this.typeTournoiId = typeTournoiId;
@@ -25,9 +24,10 @@ public class Match {
 	public Match(int matchId, int typeTournoiId, int jourId, int trancheId, int courtId) {
 		this.matchId = matchId;
 		this.typeTournoiId = typeTournoiId;
-		this.creneau = new Creneau(Jour.getJourById(jourId), TrancheHoraire.getTrancheById(trancheId), Court.getCourtById(courtId));
+		this.creneau = new Creneau(Jour.getJourById(jourId), TrancheHoraire.getTrancheById(trancheId),
+				Court.getCourtById(courtId));
 	}
-	
+
 	public int getMatchId() {
 		return matchId;
 	}
@@ -45,5 +45,4 @@ public class Match {
 		return "Match -> matchId : " + matchId + ", typeTournoiId : " + typeTournoiId + ", creneau : " + creneau;
 	}
 
-	
 }
