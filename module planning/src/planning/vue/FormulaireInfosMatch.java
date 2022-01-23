@@ -47,14 +47,14 @@ public abstract class FormulaireInfosMatch extends JFrame {
 	protected JButton boutonValider;
 	protected Connection connection;
 	protected PlanningOrga mainFrame;
-	private IMatchDAO matchDAO;
-	private IArbitreDAO arbitreDAO;
-	private IJoueurDAO joueurDAO;
-	private ICreneauDAO creneauDAO;
+	protected IMatchDAO matchDAO;
+	protected IArbitreDAO arbitreDAO;
+	protected IJoueurDAO joueurDAO;
+	protected ICreneauDAO creneauDAO;
 
 	public FormulaireInfosMatch(Match match, List<Joueur> joueursMatch, Arbitre arbitre, List<Joueur> listJoueurs,
 			List<Arbitre> listArbitres, Connection connection, PlanningOrga mainFrame) {
-		if (joueursMatch.size() == 2) {
+		if (joueursMatch != null && joueursMatch.size() == 2) {
 			joueur1 = joueursMatch.get(0);
 			joueur2 = joueursMatch.get(1);
 		}
@@ -73,7 +73,11 @@ public abstract class FormulaireInfosMatch extends JFrame {
 		joueurDAO.setConnection(connection);
 		creneauDAO = new CreneauDaoSql();
 		creneauDAO.setConnection(connection);
+		setupOthers();
 		createPanel();
+	}
+
+	protected void setupOthers() {
 	}
 
 	protected void createPanel() {
@@ -137,7 +141,7 @@ public abstract class FormulaireInfosMatch extends JFrame {
 
 	protected abstract void setupValiderButton();
 
-	private void setupFormJoueurLabel() {
+	protected void setupFormJoueurLabel() {
 		JLabel lblNewLabel_1_2 = new JLabel("Joueur 1");
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -240,14 +244,14 @@ public abstract class FormulaireInfosMatch extends JFrame {
 		String message;
 		if (!verifierNombreMatchArbitre()) {
 			message = "Un arbitre ne peut pas juger plus de 4 matchs (2 simples et 2 doubles)";
-		} else if (!verifierNationalites()) {
-			message = "L'arbitre doit etre de nationalité differente des joueurs";
 		} else if (!verifierOccupationArbitre()) {
 			message = "L'arbitre ne peut juger qu'un match à la fois";
-		} else if (!verifierOccupationJoueur()) {
-			message = "Les joueurs ne doivent pas déjà être occupés sur un autre match";
 		} else if (!verifierDispoCourt()) {
 			message = "Le court ne doit pas déjà être occupé";
+		} else if (!verifierNationalites()) {
+			message = "L'arbitre doit etre de nationalité differente des joueurs";
+		} else if (!verifierOccupationJoueur()) {
+			message = "Les joueurs ne doivent pas déjà être occupés sur un autre match";
 		} else if (!verifierJoueurs()) {
 			message = "Les deux joueurs doivent être différents";
 		} else if (!verifierJoueurTour()) {
@@ -273,17 +277,21 @@ public abstract class FormulaireInfosMatch extends JFrame {
 
 		matchDAO.updateMatch(match);
 		matchDAO.enleverJoueurs(match);
-		matchDAO.ajouterJoueur(match, joueur1);
-		matchDAO.ajouterJoueur(match, joueur2);
+		persiterJoueurs();
 		matchDAO.enleverArbitre(match);
 		matchDAO.ajouterArbitre(match, arbitre);
-		attribuerSatellites();
-	}
-
-	private void attribuerSatellites() {
 		matchDAO.ajouterArbitresLigne(match);
 		matchDAO.enleverRamasseurs(match);
 		matchDAO.ajouterRamasseurs(match);
+	}
+
+	protected void persiterJoueurs() {
+		if (joueur1 != null) {
+			matchDAO.ajouterJoueur(match, joueur1);
+		}
+		if (joueur2 != null) {
+			matchDAO.ajouterJoueur(match, joueur2);
+		}
 	}
 
 	// renvoie true si l'arbitre peut juger le match
@@ -292,21 +300,36 @@ public abstract class FormulaireInfosMatch extends JFrame {
 		return nombreMatch[0] < 2 && nombreMatch[1] < 2;
 	}
 
-	private boolean verifierNationalites() {
-		return !arbitre.getNationalite().toLowerCase().equals(joueur1.getNationalite().toLowerCase())
-				&& !arbitre.getNationalite().toLowerCase().equals(joueur2.getNationalite().toLowerCase());
+	protected boolean verifierNationalites() {
+		boolean isOk = true;
+		if (joueur1 != null) {
+			isOk = !arbitre.getNationalite().toLowerCase().equals(joueur1.getNationalite().toLowerCase());
+		}
+		if (joueur2 != null) {
+			isOk = isOk && !arbitre.getNationalite().toLowerCase().equals(joueur2.getNationalite().toLowerCase());
+		}
+		return isOk;
 	}
 
 	private boolean verifierOccupationArbitre() {
 		return arbitreDAO.checkArbitreDispo(arbitre, match.getCreneau(), match);
 	}
 
-	private boolean verifierOccupationJoueur() {
-		return joueurDAO.checkJoueurDispo(joueur1, match.getCreneau(), match)
-				&& joueurDAO.checkJoueurDispo(joueur2, match.getCreneau(), match);
+	protected boolean verifierOccupationJoueur() {
+		boolean isOk = true;
+		if (joueur1 != null) {
+			isOk = joueurDAO.checkJoueurDispo(joueur1, match.getCreneau(), match);
+		}
+		if (joueur2 != null) {
+			isOk = isOk && joueurDAO.checkJoueurDispo(joueur2, match.getCreneau(), match);
+		}
+		return isOk;
 	}
 
-	private boolean verifierJoueurs() {
+	protected boolean verifierJoueurs() {
+		if (joueur1 == null || joueur2 == null) {
+			return true;
+		}
 		return !joueur1.equals(joueur2);
 	}
 
@@ -314,19 +337,24 @@ public abstract class FormulaireInfosMatch extends JFrame {
 		return creneauDAO.checkDispoCourt(match.getCreneau(), match.getMatchId());
 	}
 
-	private boolean verifierJoueurTour() {
-		List<Match> listMatchJoueur = matchDAO.getByJoueur(joueur1);
-		for (Match match : listMatchJoueur) {
-			if (match.getTypeTournoiId() == this.match.getTypeTournoiId() && matchDAO.isPremierTour(match)
-					&& match.getMatchId() != this.match.getMatchId()) {
-				return false;
+	protected boolean verifierJoueurTour() {
+		List<Match> listMatchJoueur;
+		if (joueur1 != null) {
+			listMatchJoueur = matchDAO.getByJoueur(joueur1);
+			for (Match match : listMatchJoueur) {
+				if (match.getTypeTournoiId() == this.match.getTypeTournoiId() && matchDAO.isPremierTour(match)
+						&& match.getMatchId() != this.match.getMatchId()) {
+					return false;
+				}
 			}
 		}
-		listMatchJoueur = matchDAO.getByJoueur(joueur2);
-		for (Match match : listMatchJoueur) {
-			if (match.getTypeTournoiId() == this.match.getTypeTournoiId() && matchDAO.isPremierTour(match)
-					&& match.getMatchId() != this.match.getMatchId()) {
-				return false;
+		if (joueur2 != null) {
+			listMatchJoueur = matchDAO.getByJoueur(joueur2);
+			for (Match match : listMatchJoueur) {
+				if (match.getTypeTournoiId() == this.match.getTypeTournoiId() && matchDAO.isPremierTour(match)
+						&& match.getMatchId() != this.match.getMatchId()) {
+					return false;
+				}
 			}
 		}
 		return true;

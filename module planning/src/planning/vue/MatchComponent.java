@@ -26,30 +26,28 @@ import planning.metier.TrancheHoraire;
 
 public class MatchComponent extends JPanel {
 
-	private int idMatch;
-	private Match match;
-	private Arbitre arbitre;
-	private List<Joueur> joueursMatch;
-	private List<Arbitre> listArbitres;
-	private List<Joueur> listJoueurs;
-	private IMatchDAO matchDAO;
-	private IJoueurDAO joueurDAO;
-	private IArbitreDAO arbitreDAO;
+	protected int idMatch;
+	protected Match match;
+	protected Arbitre arbitre;
+	protected List<Joueur> joueursMatch;
+	protected List<Arbitre> listArbitres;
+	protected List<Joueur> listJoueurs;
+	protected IMatchDAO matchDAO;
+	protected IJoueurDAO joueurDAO;
+	protected IArbitreDAO arbitreDAO;
 
 	public void setIdMatch(int idMatch) {
 		this.idMatch = idMatch;
 		this.setData();
 	}
 
-	private void setData() {
+	protected void setData() {
 		match = matchDAO.getById(this.idMatch);
 		listJoueurs = joueurDAO.getJoueurs();
 		if (idMatch >= 1 && idMatch <= 12) {
 			listJoueurs = joueurDAO.getJoueursQualif();
 		} else if (idMatch >= 101 && idMatch <= 131) {
 			listJoueurs = joueurDAO.getJoueursSimple();
-		} else if (idMatch >= 201 && idMatch <= 215) {
-			listJoueurs = joueurDAO.getJoueursDouble();
 		}
 		listArbitres = arbitreDAO.getArbitres();
 
@@ -69,7 +67,10 @@ public class MatchComponent extends JPanel {
 		this.joueurDAO.setConnection(connection);
 		this.arbitreDAO = new ArbitreDaoSql();
 		this.arbitreDAO.setConnection(connection);
+		addOnClickListener(connection, mainFrame);
+	}
 
+	protected void addOnClickListener(Connection connection, PlanningOrga mainFrame) {
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				FormulaireInfosMatch form;
@@ -115,6 +116,10 @@ public class MatchComponent extends JPanel {
 		Joueur2Label.setBounds(5, 20, 98, 21);
 		add(Joueur2Label);
 
+		addJourHeure(77);
+	}
+	
+	protected void addJourHeure(int pos) {
 		Jour jour = match.getCreneau().getJour();
 		String jourString = "Date";
 		if (jour != null) {
@@ -123,7 +128,7 @@ public class MatchComponent extends JPanel {
 		JLabel dateLabel = new JLabel(jourString);
 		dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dateLabel.setBounds(77, 0, 57, 21);
+		dateLabel.setBounds(pos, 0, 57, 21);
 		add(dateLabel);
 
 		TrancheHoraire tranche = match.getCreneau().getTranche();
@@ -134,7 +139,7 @@ public class MatchComponent extends JPanel {
 		JLabel heureLabel = new JLabel(heureString);
 		heureLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		heureLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		heureLabel.setBounds(77, 20, 57, 21);
+		heureLabel.setBounds(pos, 20, 57, 21);
 		add(heureLabel);
 	}
 }

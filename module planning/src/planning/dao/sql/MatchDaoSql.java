@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import planning.dao.interfacedao.IMatchDAO;
 import planning.metier.Arbitre;
 import planning.metier.Court;
+import planning.metier.Equipe;
 import planning.metier.EquipeDeRamasseur;
 import planning.metier.Joueur;
 import planning.metier.Jour;
@@ -359,6 +360,45 @@ public class MatchDaoSql implements IMatchDAO {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, match.getMatchId());
 			stmt.setInt(2, equipeDeRamasseur.getEquipeRamasseursId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public List<Match> getByEquipe(Equipe equipe) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid IN (SELECT matchid FROM jouer WHERE numequipe = ?)";
+		List<Match> listMatchs = null;
+		Match match = null;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, equipe.getEquipeId());
+			listMatchs = new ArrayList<Match>();
+			rset = stmt.executeQuery();
+
+			while (rset.next()) {
+				match = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
+				listMatchs.add(match);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return listMatchs;
+	}
+
+	@Override
+	public void ajouterEquipe(Match match, Equipe equipe) {
+		PreparedStatement stmt;
+		String query = "INSERT INTO jouer(matchid, numequipe) VALUES (?, ?)";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			stmt.setInt(2, equipe.getEquipeId());
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);

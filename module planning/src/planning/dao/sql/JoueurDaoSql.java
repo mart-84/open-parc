@@ -150,7 +150,7 @@ public class JoueurDaoSql implements IJoueurDAO {
 		PreparedStatement stmt = null;
 		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs "
 				+ "WHERE jourid = ? AND trancheid = ? "
-				+ "AND matchid IN (SELECT matchid FROM jouer WHERE joueurid = ?) "
+				+ "AND matchid IN (SELECT matchid FROM jouer WHERE joueurid = ? OR numequipe IN (SELECT equipeid FROM equipe WHERE j1id = ? OR j2id = ?)) "
 				+ "AND matchid != ?";
 		boolean isOk = true;
 		
@@ -159,7 +159,9 @@ public class JoueurDaoSql implements IJoueurDAO {
 			stmt.setInt(1, creneau.getJour().getJourId());
 			stmt.setInt(2, creneau.getTranche().getTrancheId());
 			stmt.setInt(3, joueur.getJoueurId());
-			stmt.setInt(4, match.getMatchId());
+			stmt.setInt(4, joueur.getJoueurId());
+			stmt.setInt(5, joueur.getJoueurId());
+			stmt.setInt(6, match.getMatchId());
 			rset = stmt.executeQuery();
 			
 			isOk = !rset.next();

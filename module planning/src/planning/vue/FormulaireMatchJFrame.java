@@ -33,7 +33,7 @@ public class FormulaireMatchJFrame extends FormulaireInfosMatch {
 		contentPane.add(labelJ1);
 		
 		label = "Joueur 2";
-		if (joueur1 != null) {
+		if (joueur2 != null) {
 			label = joueur2 + "";
 		}
 		JLabel labelJ2 = new JLabel(label);
