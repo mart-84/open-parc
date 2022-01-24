@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.organisation;
 
 import java.awt.Dimension;
 import java.awt.Point;

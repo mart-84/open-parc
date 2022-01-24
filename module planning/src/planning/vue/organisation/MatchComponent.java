@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.organisation;
 
 import java.awt.Color;
 import java.awt.Font;

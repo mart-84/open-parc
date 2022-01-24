@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.organisation;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
