@@ -405,4 +405,75 @@ public class MatchDaoSql implements IMatchDAO {
 		}
 	}
 
+	@Override
+	public void ajouterGagnant(Match match, Joueur joueur) {
+		PreparedStatement stmt;
+		String query = "UPDATE matchs SET gagnantid = ? WHERE matchid = ?";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, joueur.getJoueurId());
+			stmt.setInt(2, match.getMatchId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public Match getMatchSuivant(Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT matchid, typetournoiid, jourid, trancheid, courtid FROM matchs WHERE matchid = (SELECT matchsuivant FROM matchs WHERE matchid = ?)";
+		Match suivant = null;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			rset = stmt.executeQuery();
+
+			while (rset.next()) {
+				suivant = new Match(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5));
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return suivant;
+	}
+
+	@Override
+	public void ajouterGagnant(Match match, Equipe equipe) {
+		PreparedStatement stmt;
+		String query = "UPDATE matchs SET gagnantid = ? WHERE matchid = ?";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, equipe.getEquipeId());
+			stmt.setInt(2, match.getMatchId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public boolean isTermine(Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT gagnantid FROM matchs WHERE matchid = ?";
+		boolean isTermine = false;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			rset = stmt.executeQuery();
+
+			if (rset.next()) {
+				isTermine = rset.getInt(1) != 0;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return isTermine;
+	}
+
 }

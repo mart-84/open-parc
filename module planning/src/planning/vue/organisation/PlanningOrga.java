@@ -30,7 +30,7 @@ public class PlanningOrga extends JFrame {
 
 	private JPanel contentPane;
 	private final Dimension matchDimension = new Dimension(140, 40);
-	private final Dimension matchDoubleDimension = new Dimension(160, 40);
+	private final Dimension matchDoubleDimension = new Dimension(180, 40);
 
 	private static MariaDbDataSource dataSourceDAO;
 	private static Connection connexionBD;

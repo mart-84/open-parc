@@ -7,8 +7,10 @@ import java.sql.Connection;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import planning.dao.interfacedao.IEquipeDAO;
@@ -46,6 +48,32 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 		if (listEquipeMatch.size() == 2) {
 			equipe1 = listEquipeMatch.get(0);
 			equipe2 = listEquipeMatch.get(1);
+		}
+	}
+	
+	@Override
+	protected void setScoreButtonAction(JButton button) {
+		if (equipe1 != null && equipe2 != null) {
+			button.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					contentPane.removeAll();
+					contentPane.repaint();
+					SaisieScoreForm form = new SaisieScoreDoubleForm(match, equipe1, equipe2, matchDAO, joueurDAO, FormulaireMatchDoubleAvecJoueurJFrame.this, mainFrame);
+					form.setSize(490, 439);
+					setSize(490, 460);
+					contentPane.add(form);
+				}
+				
+			});
+		} else {
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane, "Impossible de saisir le score d'un match dont les joueurs ne sont pas connus", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+				}
+			});
 		}
 	}
 

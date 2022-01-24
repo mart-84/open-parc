@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -73,15 +74,20 @@ public class MatchComponent extends JPanel {
 	protected void addOnClickListener(Connection connection, PlanningOrga mainFrame) {
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				FormulaireInfosMatch form;
-				if (matchDAO.isPremierTour(match)) {
-					form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
-							connection, mainFrame);
+				if (!matchDAO.isTermine(match)) {
+					FormulaireInfosMatch form;
+					if (matchDAO.isPremierTour(match)) {
+						form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
+								connection, mainFrame);
+					} else {
+						form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
+								connection, mainFrame);
+					}
+					form.setVisible(true);
 				} else {
-					form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
-							connection, mainFrame);
+					JOptionPane.showMessageDialog(MatchComponent.this, "Vous ne pouvez plus modifier les informations d'un match déjà terminé",
+							"Action Impossible", JOptionPane.WARNING_MESSAGE);
 				}
-				form.setVisible(true);
 			}
 		});
 	}
@@ -95,6 +101,8 @@ public class MatchComponent extends JPanel {
 
 		if (joueursMatch.size() > 0) {
 			joueur1 = joueursMatch.get(0).getNom();
+		}
+		if (joueursMatch.size() > 1) {
 			joueur2 = joueursMatch.get(1).getNom();
 		}
 

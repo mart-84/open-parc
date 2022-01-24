@@ -109,12 +109,6 @@ public class JoueurDaoSql implements IJoueurDAO {
 	}
 
 	@Override
-	public void addMatch(Joueur joueur, Match match) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<Joueur> getJoueursDispo(Jour jour, TrancheHoraire tranche) {
 		ResultSet rset = null;
 		PreparedStatement stmt = null;
@@ -243,6 +237,32 @@ public class JoueurDaoSql implements IJoueurDAO {
 		}
 		
 		return listJoueurs;
+	}
+
+	@Override
+	public void eliminerQualif(Joueur joueur) {
+		PreparedStatement stmt;
+		String query = "UPDATE joueur SET codetournoi = (codetournoi - 1) WHERE joueurid = ?";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, joueur.getJoueurId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public void qualifier(Joueur joueur) {
+		PreparedStatement stmt;
+		String query = "UPDATE joueur SET codetournoi = (codetournoi + 1) WHERE joueurid = ?";
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, joueur.getJoueurId());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 }

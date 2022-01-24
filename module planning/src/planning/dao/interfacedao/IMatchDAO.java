@@ -26,13 +26,17 @@ public interface IMatchDAO {
 	public List<Match> 		getByCourt(Court court);
 	public boolean 			isPremierTour(Match match);
 	public void 			updateMatch(Match match);
+	public void				ajouterGagnant(Match match, Joueur joueur);
 	public void 			enleverJoueurs(Match match);
 	public void 			ajouterJoueur(Match match, Joueur joueur);
-	public void				ajouterEquipe(Match match, Equipe equipe);
+	public void		 		ajouterEquipe(Match match, Equipe equipe);
 	public void				enleverArbitre(Match match);
 	public void 			ajouterArbitre(Match match, Arbitre arbitre);
 	public void 			ajouterArbitresLigne(Match match);
 	public void 			enleverRamasseurs(Match match);
 	public void 			ajouterRamasseurs(Match match);
 	public void 			ajouterRamasseur(Match match, EquipeDeRamasseur equipeDeRamasseur);
+	public Match 			getMatchSuivant(Match match);
+	public void 			ajouterGagnant(Match match, Equipe equipe);
+	public boolean			isTermine(Match match);
 }

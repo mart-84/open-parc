@@ -20,7 +20,8 @@ public interface IJoueurDAO {
 	public List<Joueur>		getJoueursQualif();
 	public List<Joueur>		getJoueursSimple();
 	public List<Joueur>		getJoueursDouble();
-	public void				addMatch(Joueur joueur, Match match);
 	public List<Joueur> 	getJoueursDispo(Jour jour, TrancheHoraire tranche);
 	public boolean			checkJoueurDispo(Joueur joueur, Creneau creneau, Match match);
+	public void				eliminerQualif(Joueur joueur);
+	public void				qualifier(Joueur joueur);
 }
