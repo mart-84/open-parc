@@ -19,7 +19,7 @@ class Joueur
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $joueurid;
+    private $joueurId;
 
     /**
      * @var string|null
@@ -38,13 +38,13 @@ class Joueur
     /**
      * @var string|null
      *
-     * @ORM\Column(name="nationaliteJoueur", type="string", length=254, nullable=true)
+     * @ORM\Column(name="nationalite", type="string", length=254, nullable=true)
      */
-    private $nationaliteJoueur;
+    private $nationalite;
 
-    public function getJoueurid(): ?int
+    public function getjoueurId(): ?int
     {
-        return $this->joueurid;
+        return $this->joueurId;
     }
 
     public function getNomjoueur(): ?string
@@ -71,14 +71,14 @@ class Joueur
         return $this;
     }
 
-    public function getNationaliteJoueur(): ?string
+    public function getnationalite(): ?string
     {
-        return $this->nationaliteJoueur;
+        return $this->nationalite;
     }
 
-    public function setNationaliteJoueur(?string $nationaliteJoueur): self
+    public function setnationalite(?string $nationalite): self
     {
-        $this->nationaliteJoueur = $nationaliteJoueur;
+        $this->nationalite = $nationalite;
 
         return $this;
     }

@@ -52,17 +52,29 @@ class BilletRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByJourCourt($jourid,$courtid)
+    public function findByJourCourt($id)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.jourid = :val')
-            ->andWhere('b.courtid = :val2')
-            ->setParameter('val', $jourid)
-            ->setParameter('val2', $courtid)
+            
+            ->andWhere('b.billetid = :val2')
+  
+            ->setParameter('val2', $id)
             ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function decreaseQuantity($id,$quantity)
+    {
+        $queryBuilder = $this->createQueryBuilder('b');
+        $query = $queryBuilder
+            ->set('b.quantite', ':quantity')
+            ->where('b.billetid = :val')
+            ->setParameter('quantity', $quantity)
+            ->setParameter('val', $id)
+            ->getQuery();
+        $query->execute();
     }
     
     

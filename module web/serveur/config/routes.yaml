@@ -12,3 +12,9 @@ app_billetterie_joueur:
 app_liste_joueur:
     path: /billetterie/liste_joueur
     controller: App\Controller\joueurController::recupJoueur
+
+app_decrease:
+    path: /billetterie/decrease/{billetId}
+    controller: App\Controller\billetController::decreaseQuantity
+    defaults:
+        billetId: 1

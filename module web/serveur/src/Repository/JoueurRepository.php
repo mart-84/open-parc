@@ -32,6 +32,18 @@ class JoueurRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.joueurId = :id')
+            ->setParameter('id', $id)
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+
     // /**
     //  * @return Joueur[] Returns an array of Joueur objects
     //  */

@@ -22,9 +22,9 @@ class Jouer
     private $matchid;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(name="joueurId", type="integer", nullable=false)
+     * @ORM\Column(name="joueurId", type="integer", nullable=true)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */

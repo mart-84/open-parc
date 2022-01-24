@@ -72,14 +72,18 @@ class triParJours extends AbstractController
         $liste_matchs3=[];
         foreach($liste_matchs2 as $un_match){
             foreach($un_match['joueursId'] as $un_jId){
-                $joueur=$joueurRepository->find($un_jId);
-                $nom=$joueur->getNomjoueur();
-                $un_match['joueursNoms'][]=$nom;
+                // var_dump($un_jId);die;
+                if($un_jId==NULL){
+                    $un_match['joueursNoms'][]='indefini';
+                }else {
+                    $joueur=$joueurRepository->find($un_jId);                
+                    $nom=$joueur->getNomjoueur();
+                    $un_match['joueursNoms'][]=$nom;
+                }
             }
             $liste_matchs3[]=$un_match;
         }
         
-
 
         
         $matchsCourt1=[];
@@ -144,7 +148,6 @@ class triParJours extends AbstractController
                 'billetid' => (int)$un_billet['billet']->getBilletId(),
                 'jouriD' => (int)$un_billet['billet']->getJourId(),
                 'courtid' => (int)$un_billet['billet']->getCourtId(),
-                'typebilletid' => (int)$un_billet['billet']->getTypebilletid(),
                 'prix' => (int)$un_billet['billet']->getPrix(),
                 'place' => (int)$un_billet['billet']->getPlace(),
                 'liste_match' => $un_billet['matchs'],

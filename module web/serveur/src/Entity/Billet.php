@@ -37,13 +37,6 @@ class Billet
     private $courtid;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="typeBilletId", type="integer", nullable=false)
-     */
-    private $typebilletid;
-
-    /**
      * @var int|null
      *
      * @ORM\Column(name="prix", type="integer", nullable=true)
@@ -56,6 +49,13 @@ class Billet
      * @ORM\Column(name="place", type="integer", nullable=true)
      */
     private $place;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="quantite", type="integer", nullable=false)
+     */
+    private $quantite;
 
     public function getBilletid(): ?int
     {
@@ -86,18 +86,6 @@ class Billet
         return $this;
     }
 
-    public function getTypebilletid(): ?int
-    {
-        return $this->typebilletid;
-    }
-
-    public function setTypebilletid(int $typebilletid): self
-    {
-        $this->typebilletid = $typebilletid;
-
-        return $this;
-    }
-
     public function getPrix(): ?int
     {
         return $this->prix;
@@ -122,5 +110,15 @@ class Billet
         return $this;
     }
 
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite($qauntity): self
+    {
+        $this->quantite =$qauntity;
+        return $this;
+    }
 
 }
