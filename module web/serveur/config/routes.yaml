@@ -18,3 +18,9 @@ app_decrease:
     controller: App\Controller\billetController::decreaseQuantity
     defaults:
         billetId: 1
+
+app_findById:
+    path: /billetterie/getById/{billetId}
+    controller: App\Controller\billetController::getById
+    defaults:
+        billetId: 1
