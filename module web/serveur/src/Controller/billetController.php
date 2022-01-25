@@ -36,7 +36,18 @@ class billetController extends AbstractController
         $billetRepository=$doctrine->getRepository(Billet::class);
         $billet=$billetRepository->find($billetId);
         
-
+        $rows=[];
+        foreach($billet as $un_billet) {
+            $rows[] = [
+                'billetid' => (int)$un_billet['billet']->getBilletId(),
+                'jouriD' => (int)$un_billet['billet']->getJourId(),
+                'courtid' => (int)$un_billet['billet']->getCourtId(),
+                'prix' => (int)$un_billet['billet']->getPrix(),
+                'place' => (int)$un_billet['billet']->getPlace(),
+            ];
+        }
+        echo json_encode($rows);
+        return new Response("ok");
 
         return new Response("Done");
     }
