@@ -38,8 +38,8 @@ class billetController extends AbstractController
         
          /** @var MatchsRepository $matchRepository */
          $matchRepository=$doctrine->getRepository(Matchs::class);
-         $day=$billet->getJourId();
-         $court=$billet->getCourtId();
+         $day=$billet['jourId'];
+         $court=$billet['courtId'];
          $matchs=$matchRepository->findByDayCourt($day,$court);
         
         
