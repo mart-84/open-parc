@@ -54,8 +54,10 @@ public abstract class FormulaireInfosMatch extends JFrame {
 
 	public FormulaireInfosMatch(Match match, List<Joueur> joueursMatch, Arbitre arbitre, List<Joueur> listJoueurs,
 			List<Arbitre> listArbitres, Connection connection, PlanningOrga mainFrame) {
-		if (joueursMatch != null && joueursMatch.size() == 2) {
+		if (joueursMatch != null && joueursMatch.size() > 0) {
 			joueur1 = joueursMatch.get(0);
+		}
+		if (joueursMatch != null && joueursMatch.size() > 1) {
 			joueur2 = joueursMatch.get(1);
 		}
 		this.mainFrame = mainFrame;

@@ -12,8 +12,9 @@ import planning.metier.Match;
 public interface IEquipeDAO {
 	public void 			setDataSource(DataSource ds);
 	public void 			setConnection(Connection connexionBD);
-	public List<Equipe>		getEquipes();
+	public List<Equipe>		getEquipes(); 
 	public Equipe			getById(int idEquipe);
 	public Equipe			getByJoueur(Joueur joueur);
 	public List<Equipe>		getByMatch(Match match);
+	public boolean			isGagnant(Equipe equipe, Match match);
 }

@@ -98,29 +98,31 @@ public class MatchComponent extends JPanel {
 
 		String joueur1 = "Joueur 1";
 		String joueur2 = "Joueur 2";
-
+		int style1 = Font.PLAIN, style2 = Font.PLAIN;
+		
 		if (joueursMatch.size() > 0) {
 			joueur1 = joueursMatch.get(0).getNom();
+			if (joueurDAO.isGagnant(joueursMatch.get(0), match)) {
+				style1 = Font.BOLD;
+			}
+		} else {
+			style1 = Font.ITALIC;
 		}
 		if (joueursMatch.size() > 1) {
 			joueur2 = joueursMatch.get(1).getNom();
-		}
-
-		int style = Font.PLAIN;
-		if (joueur1.equals("Joueur 1")) {
-			style = Font.ITALIC;
+			if (joueurDAO.isGagnant(joueursMatch.get(1), match)) {
+				style2 = Font.BOLD;
+			}
+		} else {
+			style2 = Font.ITALIC;
 		}
 		JLabel Joueur1Label = new JLabel(joueur1);
-		Joueur1Label.setFont(new Font("Tahoma", style, 12));
+		Joueur1Label.setFont(new Font("Tahoma", style1, 12));
 		Joueur1Label.setBounds(5, 0, 98, 21);
 		add(Joueur1Label);
 
-		style = Font.PLAIN;
-		if (joueur2.equals("Joueur 2")) {
-			style = Font.ITALIC;
-		}
 		JLabel Joueur2Label = new JLabel(joueur2);
-		Joueur2Label.setFont(new Font("Tahoma", style, 12));
+		Joueur2Label.setFont(new Font("Tahoma", style2, 12));
 		Joueur2Label.setBounds(5, 20, 98, 21);
 		add(Joueur2Label);
 

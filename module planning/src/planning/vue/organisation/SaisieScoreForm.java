@@ -134,7 +134,7 @@ public class SaisieScoreForm extends JPanel {
 						}
 					}
 
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					frame.dispose();
 				}
 			}

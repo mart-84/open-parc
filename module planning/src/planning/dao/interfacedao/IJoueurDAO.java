@@ -24,4 +24,5 @@ public interface IJoueurDAO {
 	public boolean			checkJoueurDispo(Joueur joueur, Creneau creneau, Match match);
 	public void				eliminerQualif(Joueur joueur);
 	public void				qualifier(Joueur joueur);
+	public boolean 			isGagnant(Joueur joueur, Match match);
 }

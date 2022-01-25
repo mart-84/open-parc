@@ -265,4 +265,25 @@ public class JoueurDaoSql implements IJoueurDAO {
 		}
 	}
 
+	@Override
+	public boolean isGagnant(Joueur joueur, Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT gagnantid FROM matchs WHERE matchid = ?";
+		boolean isGagnant = false;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			rset = stmt.executeQuery();
+
+			if (rset.next()) {
+				isGagnant = rset.getInt(1) == joueur.getJoueurId();
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return isGagnant;
+	}
+
 }

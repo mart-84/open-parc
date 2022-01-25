@@ -65,32 +65,35 @@ public class MatchDoubleComponent extends MatchComponent {
 		String joueur1 = "Equipe 1";
 		String joueur2 = "Equipe 2";
 
+		int style1 = Font.PLAIN, style2 = Font.PLAIN;
 		if (listEquipeMatch.size() > 0) {
 			joueur1 = listEquipeMatch.get(0) + "";
+			if (equipeDAO.isGagnant(listEquipeMatch.get(0), match)) {
+				style1 = Font.BOLD;
+			}
+		} else {
+			style1 = Font.ITALIC;
 		}
 		if (listEquipeMatch.size() > 1) {
 			joueur2 = listEquipeMatch.get(1) + "";
+			if (equipeDAO.isGagnant(listEquipeMatch.get(1), match)) {
+				style2 = Font.BOLD;
+			}
+		} else {
+			style2 = Font.ITALIC;
 		}
-
-		int style = Font.PLAIN;
-		if (joueur1.equals("Equipe 1")) {
-			style = Font.ITALIC;
-		}
+				
 		JLabel Joueur1Label = new JLabel(joueur1);
-		Joueur1Label.setFont(new Font("Tahoma", style, 12));
+		Joueur1Label.setFont(new Font("Tahoma", style1, 12));
 		Joueur1Label.setBounds(5, 0, 200, 21);
 		add(Joueur1Label);
 
-		style = Font.PLAIN;
-		if (joueur2.equals("Equipe 2")) {
-			style = Font.ITALIC;
-		}
 		JLabel Joueur2Label = new JLabel(joueur2);
-		Joueur2Label.setFont(new Font("Tahoma", style, 12));
+		Joueur2Label.setFont(new Font("Tahoma", style2, 12));
 		Joueur2Label.setBounds(5, 20, 200, 21);
 		add(Joueur2Label);
 
-		addJourHeure(117);
+		addJourHeure(137);
 	}
 
 }

@@ -75,7 +75,7 @@ public class SaisieScoreDoubleForm extends SaisieScoreForm {
 						matchDAO.ajouterEquipe(suivant, gagnant);
 					}
 
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					frame.dispose();
 				}
 			}

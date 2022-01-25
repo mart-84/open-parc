@@ -14,7 +14,6 @@ import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
 import planning.metier.TrancheHoraire;
-import planning.metier.TypeDeTournoi;
 
 public class FormulaireMatchJFrame extends FormulaireInfosMatch {
 
@@ -47,14 +46,6 @@ public class FormulaireMatchJFrame extends FormulaireInfosMatch {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("\nPour le match " + match.getMatchId() + " du tournoi " + TypeDeTournoi.getById(match.getTypeTournoiId()) + ", il faut enregistrer les données suivantes");
-				System.out.println(comboBoxJour.getSelectedItem());
-				System.out.println(comboBoxHeure.getSelectedItem());
-				System.out.println(comboBoxCourt.getSelectedItem());
-				System.out.println(comboBoxArbitre.getSelectedItem());
-				System.out.println(joueur1);
-				System.out.println(joueur2);
-				
 				Jour jour = (Jour) comboBoxJour.getSelectedItem();
 				TrancheHoraire tranche = (TrancheHoraire) comboBoxHeure.getSelectedItem();
 				Court court = (Court) comboBoxCourt.getSelectedItem();
@@ -63,7 +54,7 @@ public class FormulaireMatchJFrame extends FormulaireInfosMatch {
 				if (verifierDonnees()) {
 					// si toutes les contraintes sont vérifiées
 					persisterDonnees();
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					dispose();
 				}
 			}

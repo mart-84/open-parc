@@ -82,13 +82,13 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 		JLabel lblNewLabel_1_2 = new JLabel("Equipe 1");
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2.setBounds(21, 237, 70, 14);
+		lblNewLabel_1_2.setBounds(21, 237, 70, 18);
 		contentPane.add(lblNewLabel_1_2);
 
 		JLabel lblNewLabel_1_3 = new JLabel("Equipe 2");
 		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_3.setBounds(254, 237, 64, 14);
+		lblNewLabel_1_3.setBounds(254, 237, 64, 18);
 		contentPane.add(lblNewLabel_1_3);
 	}
 
@@ -118,16 +118,6 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("\nPour le match " + match.getMatchId() + " du tournoi "
-						+ TypeDeTournoi.getById(match.getTypeTournoiId())
-						+ ", il faut enregistrer les données suivantes");
-				System.out.println(comboBoxJour.getSelectedItem());
-				System.out.println(comboBoxHeure.getSelectedItem());
-				System.out.println(comboBoxCourt.getSelectedItem());
-				System.out.println(comboBoxArbitre.getSelectedItem());
-				System.out.println(comboBoxE1.getSelectedItem());
-				System.out.println(comboBoxE2.getSelectedItem());
-
 				Jour jour = (Jour) comboBoxJour.getSelectedItem();
 				TrancheHoraire tranche = (TrancheHoraire) comboBoxHeure.getSelectedItem();
 				Court court = (Court) comboBoxCourt.getSelectedItem();
@@ -138,7 +128,7 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 				if (verifierDonnees()) {
 					// si toutes les contraintes sont vérifiées
 					persisterDonnees();
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					dispose();
 				}
 			}

@@ -70,7 +70,7 @@ public class FormulaireMatchAvecJoueurJFrame extends FormulaireInfosMatch {
 				if (verifierDonnees()) {
 					// si toutes les contraintes sont vérifiées
 					persisterDonnees();
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					dispose(); 
 				}
 			}
