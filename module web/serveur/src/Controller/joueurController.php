@@ -21,7 +21,7 @@ class joueurController extends AbstractController
             $rows[] = [
                 'Prenom' => (string)$un_joueur->getPrenomjoueur(),
                 'Nom' => (string)$un_joueur->getNomjoueur(),
-                'Nationalite' => (string)$un_joueur->getNationaliteJoueur(),
+                'Nationalite' => (string)$un_joueur->getnationalite(),
             ];
         }
         echo json_encode($rows);
