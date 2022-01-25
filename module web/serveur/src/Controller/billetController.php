@@ -34,7 +34,7 @@ class billetController extends AbstractController
     {
         /** @var BilletRepository $billetRepository */
         $billetRepository=$doctrine->getRepository(Billet::class);
-        $billet=$billetRepository->find($billetId);
+        $billet=$billetRepository->findBy($billetId);
         
         $rows=[];
         foreach($billet as $un_billet) {

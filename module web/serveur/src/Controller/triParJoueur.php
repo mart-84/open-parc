@@ -37,6 +37,7 @@ class triParJoueur extends AbstractController
         $player_nom=$player[0];
         $player_prenom=$player[1];
         $joueur=$joueurRepository->findByNomPrenom($player_nom,$player_prenom);
+        
         $jid=$joueur[0];
         //trouver l'id des matchs que joue le joueur recherché
         $matchsid=$jouerRepository->findByPlayer($jid);
@@ -132,7 +133,6 @@ class triParJoueur extends AbstractController
                 'billetid' => (int)$un_billet['billet']->getBilletId(),
                 'jouriD' => (int)$un_billet['billet']->getJourId(),
                 'courtid' => (int)$un_billet['billet']->getCourtId(),
-                'typebilletid' => (int)$un_billet['billet']->getTypebilletid(),
                 'prix' => (int)$un_billet['billet']->getPrix(),
                 'place' => (int)$un_billet['billet']->getPlace(),
                 'liste_match' => $un_billet['matchs'],
