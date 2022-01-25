@@ -52,6 +52,17 @@ class BilletRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findById($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.billetid = :val')
+            ->setParameter('val', $value)
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findByJourCourt($id)
     {
         return $this->createQueryBuilder('b')
