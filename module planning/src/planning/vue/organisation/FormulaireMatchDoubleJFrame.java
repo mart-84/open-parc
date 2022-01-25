@@ -19,7 +19,6 @@ import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
 import planning.metier.TrancheHoraire;
-import planning.metier.TypeDeTournoi;
 
 public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 
@@ -104,11 +103,13 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 		boolean isOk = true;
 		if (equipe1 != null) {
 			isOk = !arbitre.getNationalite().toLowerCase().equals(equipe1.getJoueur1().getNationalite().toLowerCase())
-				&& !arbitre.getNationalite().toLowerCase().equals(equipe1.getJoueur2().getNationalite().toLowerCase());
+					&& !arbitre.getNationalite().toLowerCase()
+							.equals(equipe1.getJoueur2().getNationalite().toLowerCase());
 		}
 		if (equipe2 != null) {
-			isOk =  !arbitre.getNationalite().toLowerCase().equals(equipe2.getJoueur1().getNationalite().toLowerCase())
-			&& !arbitre.getNationalite().toLowerCase().equals(equipe2.getJoueur2().getNationalite().toLowerCase());
+			isOk = !arbitre.getNationalite().toLowerCase().equals(equipe2.getJoueur1().getNationalite().toLowerCase())
+					&& !arbitre.getNationalite().toLowerCase()
+							.equals(equipe2.getJoueur2().getNationalite().toLowerCase());
 		}
 		return isOk;
 	}
@@ -117,7 +118,7 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 		boolean isOk = true;
 		if (equipe1 != null) {
 			isOk = joueurDAO.checkJoueurDispo(equipe1.getJoueur1(), match.getCreneau(), match)
-					&& joueurDAO.checkJoueurDispo(equipe1.getJoueur2(), match.getCreneau(), match); 
+					&& joueurDAO.checkJoueurDispo(equipe1.getJoueur2(), match.getCreneau(), match);
 		}
 		if (equipe2 != null) {
 			isOk = isOk && joueurDAO.checkJoueurDispo(equipe2.getJoueur1(), match.getCreneau(), match)

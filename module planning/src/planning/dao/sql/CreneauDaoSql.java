@@ -18,13 +18,13 @@ import planning.metier.Jour;
 import planning.metier.TrancheHoraire;
 
 public class CreneauDaoSql implements ICreneauDAO {
-	
+
 	private Connection connexionBD;
-	
-	private static final String baseQuery =  "SELECT jourId, trancheId, courtId FROM jour, tranchehoraire, court "
+
+	private static final String baseQuery = "SELECT jourId, trancheId, courtId FROM jour, tranchehoraire, court "
 			+ "WHERE (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM matchs WHERE NOT (jourid IS NULL OR courtid IS NULL OR trancheid IS NULL)) "
 			+ "AND (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM reservation) ";
-	
+
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		try {
@@ -47,22 +47,22 @@ public class CreneauDaoSql implements ICreneauDAO {
 		PreparedStatement stmt = null;
 		String query = baseQuery + "AND jourId = ? AND trancheId = ? AND courtId = ?";
 		Creneau creneau = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, jour.getJourId());
 			stmt.setInt(2, th.getTrancheId());
 			stmt.setInt(3, court.getCourtId());
 			rset = stmt.executeQuery();
-			
+
 			if (rset.next()) {
 				creneau = new Creneau(jour, th, court);
 			}
-			
+
 		} catch (SQLException ex) {
-            Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return creneau;
 	}
 
@@ -73,21 +73,22 @@ public class CreneauDaoSql implements ICreneauDAO {
 		String query = baseQuery;
 		List<Creneau> listCreneau = null;
 		Creneau creneau = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			listCreneau = new ArrayList<Creneau>();
 			rset = stmt.executeQuery();
-			
+
 			if (rset.next()) {
-				creneau = new Creneau(Jour.getJourById(rset.getInt(1)), TrancheHoraire.getTrancheById(rset.getInt(2)), Court.getCourtById(rset.getInt(3)));
+				creneau = new Creneau(Jour.getJourById(rset.getInt(1)), TrancheHoraire.getTrancheById(rset.getInt(2)),
+						Court.getCourtById(rset.getInt(3)));
 				listCreneau.add(creneau);
 			}
-			
+
 		} catch (SQLException ex) {
-            Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listCreneau;
 	}
 
@@ -98,40 +99,38 @@ public class CreneauDaoSql implements ICreneauDAO {
 		String query = baseQuery + "AND jourId = ?";
 		List<Creneau> listCreneau = null;
 		Creneau creneau = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			listCreneau = new ArrayList<Creneau>();
 			stmt.setInt(1, jour.getJourId());
 			rset = stmt.executeQuery();
-			
+
 			if (rset.next()) {
-				creneau = new Creneau(Jour.getJourById(rset.getInt(1)), TrancheHoraire.getTrancheById(rset.getInt(2)), Court.getCourtById(rset.getInt(3)));
+				creneau = new Creneau(Jour.getJourById(rset.getInt(1)), TrancheHoraire.getTrancheById(rset.getInt(2)),
+						Court.getCourtById(rset.getInt(3)));
 				listCreneau.add(creneau);
 			}
-			
+
 		} catch (SQLException ex) {
-            Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listCreneau;
 	}
 
 	@Override
 	public List<Creneau> getCreneaux(TrancheHoraire th) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Creneau> getCreneaux(Court court) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Creneau> getCreneaux(Jour jour, Court court) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -142,23 +141,24 @@ public class CreneauDaoSql implements ICreneauDAO {
 		String query = baseQuery + "AND jourId = ? AND trancheId = ?";
 		List<Creneau> listCreneau = null;
 		Creneau creneau = null;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			listCreneau = new ArrayList<Creneau>();
 			stmt.setInt(1, jour.getJourId());
 			stmt.setInt(2, th.getTrancheId());
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
-				creneau = new Creneau(Jour.getJourById(rset.getInt(1)), TrancheHoraire.getTrancheById(rset.getInt(2)), Court.getCourtById(rset.getInt(3)));
+				creneau = new Creneau(Jour.getJourById(rset.getInt(1)), TrancheHoraire.getTrancheById(rset.getInt(2)),
+						Court.getCourtById(rset.getInt(3)));
 				listCreneau.add(creneau);
 			}
-			
+
 		} catch (SQLException ex) {
-            Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CreneauDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listCreneau;
 	}
 
@@ -170,7 +170,7 @@ public class CreneauDaoSql implements ICreneauDAO {
 				+ "WHERE (jourId, trancheId, courtId) NOT IN (SELECT jourId, trancheId, courtId FROM matchs WHERE matchid != ? AND NOT (jourid IS NULL OR courtid IS NULL OR trancheid IS NULL)) "
 				+ "AND jourid = ? AND trancheid = ? AND courtid = ?";
 		boolean isOk = false;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, matchId);
@@ -178,12 +178,12 @@ public class CreneauDaoSql implements ICreneauDAO {
 			stmt.setInt(3, creneau.getTranche().getTrancheId());
 			stmt.setInt(4, creneau.getCourt().getCourtId());
 			rset = stmt.executeQuery();
-			
+
 			isOk = rset.next();
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return isOk;
 	}
 

@@ -61,7 +61,7 @@ public class PlanningOrga extends JFrame {
 	public PlanningOrga() {
 		createPanel();
 	}
-	
+
 	public int getSelectTab() {
 		return tabbedPane.getSelectedIndex();
 	}

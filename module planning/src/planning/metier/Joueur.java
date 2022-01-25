@@ -8,11 +8,11 @@ package planning.metier;
 
 public class Joueur {
 	private int joueurId;
-   	private String nom;
-   	private String prenom;
-   	private String nationalite;
-	
-   	public Joueur(int joueurId, String nom, String prenom, String nationalite) {
+	private String nom;
+	private String prenom;
+	private String nationalite;
+
+	public Joueur(int joueurId, String nom, String prenom, String nationalite) {
 		super();
 		this.nationalite = nationalite;
 		this.joueurId = joueurId;
@@ -40,7 +40,7 @@ public class Joueur {
 	public String toString() {
 		return nom;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -52,7 +52,5 @@ public class Joueur {
 		Joueur other = (Joueur) obj;
 		return joueurId == other.joueurId;
 	}
-	
-	
-   	
+
 }

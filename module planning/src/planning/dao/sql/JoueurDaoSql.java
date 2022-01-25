@@ -22,7 +22,7 @@ import planning.metier.TrancheHoraire;
 public class JoueurDaoSql implements IJoueurDAO {
 
 	private Connection connexionBD;
-	
+
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		try {
@@ -43,19 +43,19 @@ public class JoueurDaoSql implements IJoueurDAO {
 		PreparedStatement stmt = null;
 		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE joueurid = ?";
 		Joueur joueur = null;
-		
+
 		try {
 			stmt = this.connexionBD.prepareStatement(query);
 			stmt.setInt(1, idJoueur);
 			rset = stmt.executeQuery();
-			
+
 			if (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 			}
-		} catch(SQLException ex) {
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return joueur;
 	}
 
@@ -66,21 +66,21 @@ public class JoueurDaoSql implements IJoueurDAO {
 		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE joueurid IN (SELECT joueurid FROM jouer WHERE matchid = ?)";
 		List<Joueur> listJoueurs = null;
 		Joueur joueur = null;
-		
+
 		try {
 			stmt = this.connexionBD.prepareStatement(query);
 			stmt.setInt(1, match.getMatchId());
 			listJoueurs = new ArrayList<Joueur>();
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 				listJoueurs.add(joueur);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listJoueurs;
 	}
 
@@ -91,20 +91,20 @@ public class JoueurDaoSql implements IJoueurDAO {
 		List<Joueur> listJoueurs = null;
 		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur";
 		Joueur joueur;
-		
+
 		try {
 			stmt = this.connexionBD.createStatement();
 			listJoueurs = new ArrayList<Joueur>();
 			rset = stmt.executeQuery(query);
-			
+
 			while (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 				listJoueurs.add(joueur);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listJoueurs;
 	}
 
@@ -117,26 +117,24 @@ public class JoueurDaoSql implements IJoueurDAO {
 				+ "WHERE matchid IN (SELECT matchid FROM matchs WHERE jourid = ? AND trancheid = ?))";
 		List<Joueur> listJoueurs = null;
 		Joueur joueur = null;
-		
+
 		try {
 			stmt = this.connexionBD.prepareStatement(query);
 			stmt.setInt(1, jour.getJourId());
 			stmt.setInt(2, tranche.getTrancheId());
 			listJoueurs = new ArrayList<Joueur>();
 			rset = stmt.executeQuery();
-			
+
 			while (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 				listJoueurs.add(joueur);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listJoueurs;
 	}
-	
-
 
 	@Override
 	public boolean checkJoueurDispo(Joueur joueur, Creneau creneau, Match match) {
@@ -147,7 +145,7 @@ public class JoueurDaoSql implements IJoueurDAO {
 				+ "AND matchid IN (SELECT matchid FROM jouer WHERE joueurid = ? OR numequipe IN (SELECT equipeid FROM equipe WHERE j1id = ? OR j2id = ?)) "
 				+ "AND matchid != ?";
 		boolean isOk = true;
-		
+
 		try {
 			stmt = connexionBD.prepareStatement(query);
 			stmt.setInt(1, creneau.getJour().getJourId());
@@ -157,13 +155,13 @@ public class JoueurDaoSql implements IJoueurDAO {
 			stmt.setInt(5, joueur.getJoueurId());
 			stmt.setInt(6, match.getMatchId());
 			rset = stmt.executeQuery();
-			
+
 			isOk = !rset.next();
-			
+
 		} catch (SQLException ex) {
-            Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		return isOk;
 	}
 
@@ -174,20 +172,20 @@ public class JoueurDaoSql implements IJoueurDAO {
 		List<Joueur> listJoueurs = null;
 		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE codetournoi = 1 OR codetournoi = 4";
 		Joueur joueur;
-		
+
 		try {
 			stmt = this.connexionBD.createStatement();
 			listJoueurs = new ArrayList<Joueur>();
 			rset = stmt.executeQuery(query);
-			
+
 			while (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 				listJoueurs.add(joueur);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listJoueurs;
 	}
 
@@ -198,20 +196,20 @@ public class JoueurDaoSql implements IJoueurDAO {
 		List<Joueur> listJoueurs = null;
 		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE codetournoi = 2 OR codetournoi = 5";
 		Joueur joueur;
-		
+
 		try {
 			stmt = this.connexionBD.createStatement();
 			listJoueurs = new ArrayList<Joueur>();
 			rset = stmt.executeQuery(query);
-			
+
 			while (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 				listJoueurs.add(joueur);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listJoueurs;
 	}
 
@@ -222,20 +220,20 @@ public class JoueurDaoSql implements IJoueurDAO {
 		List<Joueur> listJoueurs = null;
 		String query = "SELECT joueurid, nomjoueur, prenomjoueur, nationalite FROM joueur WHERE codetournoi = 3 OR codetournoi = 4 OR codetournoi = 5";
 		Joueur joueur;
-		
+
 		try {
 			stmt = this.connexionBD.createStatement();
 			listJoueurs = new ArrayList<Joueur>();
 			rset = stmt.executeQuery(query);
-			
+
 			while (rset.next()) {
 				joueur = new Joueur(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4));
 				listJoueurs.add(joueur);
-            }
-		} catch(SQLException ex) {
+			}
+		} catch (SQLException ex) {
 			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return listJoueurs;
 	}
 

@@ -82,7 +82,7 @@ public class MatchDoubleComponent extends MatchComponent {
 		} else {
 			style2 = Font.ITALIC;
 		}
-				
+
 		JLabel Joueur1Label = new JLabel(joueur1);
 		Joueur1Label.setFont(new Font("Tahoma", style1, 12));
 		Joueur1Label.setBounds(5, 0, 200, 21);

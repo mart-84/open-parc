@@ -7,7 +7,7 @@ public class MatchComponentData {
 	private int id;
 	private Point point;
 	private Dimension dim;
-	
+
 	public MatchComponentData(int id, Point point, Dimension dim) {
 		super();
 		this.id = id;
@@ -21,6 +21,5 @@ public class MatchComponentData {
 		matchC.setIdMatch(id);
 		matchC.createPanel();
 	}
-	
-	
+
 }

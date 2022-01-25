@@ -16,7 +16,7 @@ import planning.metier.Joueur;
 import planning.metier.Match;
 
 public class SaisieScoreDoubleForm extends SaisieScoreForm {
-	
+
 	private Equipe equipe1;
 	private Equipe equipe2;
 	private JLabel joueur1Label;
@@ -25,11 +25,10 @@ public class SaisieScoreDoubleForm extends SaisieScoreForm {
 	public SaisieScoreDoubleForm(Match match, Joueur joueur1, Joueur joueur2, IMatchDAO matchDAO, IJoueurDAO joueurDAO,
 			FormulaireInfosMatch frame, PlanningOrga mainFrame) {
 		super(match, joueur1, joueur2, matchDAO, joueurDAO, frame, mainFrame);
-		// TODO Auto-generated constructor stub
 	}
 
-	public SaisieScoreDoubleForm(Match match, Equipe equipe1, Equipe equipe2, IMatchDAO matchDAO,
-			IJoueurDAO joueurDAO, FormulaireMatchDoubleAvecJoueurJFrame frame, PlanningOrga mainFrame) {
+	public SaisieScoreDoubleForm(Match match, Equipe equipe1, Equipe equipe2, IMatchDAO matchDAO, IJoueurDAO joueurDAO,
+			FormulaireMatchDoubleAvecJoueurJFrame frame, PlanningOrga mainFrame) {
 		super(match, null, null, matchDAO, joueurDAO, frame, mainFrame);
 		this.equipe1 = equipe1;
 		this.equipe2 = equipe2;
@@ -50,7 +49,7 @@ public class SaisieScoreDoubleForm extends SaisieScoreForm {
 		joueur2Label.setBounds(270, 144, 150, 17);
 		contentPane.add(joueur2Label);
 	}
-	
+
 	@Override
 	protected void addButtonValiderAction(JButton buttonValider) {
 		buttonValider.addActionListener(new ActionListener() {
@@ -82,5 +81,5 @@ public class SaisieScoreDoubleForm extends SaisieScoreForm {
 
 		});
 	}
-	
+
 }

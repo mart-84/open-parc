@@ -77,15 +77,16 @@ public class MatchComponent extends JPanel {
 				if (!matchDAO.isTermine(match)) {
 					FormulaireInfosMatch form;
 					if (matchDAO.isPremierTour(match)) {
-						form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
-								connection, mainFrame);
+						form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs,
+								listArbitres, connection, mainFrame);
 					} else {
 						form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
 								connection, mainFrame);
 					}
 					form.setVisible(true);
 				} else {
-					JOptionPane.showMessageDialog(MatchComponent.this, "Vous ne pouvez plus modifier les informations d'un match déjà terminé",
+					JOptionPane.showMessageDialog(MatchComponent.this,
+							"Vous ne pouvez plus modifier les informations d'un match déjà terminé",
 							"Action Impossible", JOptionPane.WARNING_MESSAGE);
 				}
 			}
@@ -99,7 +100,7 @@ public class MatchComponent extends JPanel {
 		String joueur1 = "Joueur 1";
 		String joueur2 = "Joueur 2";
 		int style1 = Font.PLAIN, style2 = Font.PLAIN;
-		
+
 		if (joueursMatch.size() > 0) {
 			joueur1 = joueursMatch.get(0).getNom();
 			if (joueurDAO.isGagnant(joueursMatch.get(0), match)) {
@@ -128,7 +129,7 @@ public class MatchComponent extends JPanel {
 
 		addJourHeure(77);
 	}
-	
+
 	protected void addJourHeure(int pos) {
 		Jour jour = match.getCreneau().getJour();
 		String jourString = "Date";

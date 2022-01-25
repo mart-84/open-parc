@@ -56,6 +56,5 @@ public class Equipe {
 		Equipe other = (Equipe) obj;
 		return equipeId == other.equipeId;
 	}
-	
-	
+
 }

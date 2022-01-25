@@ -17,7 +17,8 @@ import planning.metier.TrancheHoraire;
 
 public class FormulaireMatchJFrame extends FormulaireInfosMatch {
 
-	public FormulaireMatchJFrame(Match match, List<Joueur> joueursMatch, Arbitre arbitre, List<Joueur> listJoueurs, List<Arbitre> listArbitres, Connection connection, PlanningOrga mainFrame) {
+	public FormulaireMatchJFrame(Match match, List<Joueur> joueursMatch, Arbitre arbitre, List<Joueur> listJoueurs,
+			List<Arbitre> listArbitres, Connection connection, PlanningOrga mainFrame) {
 		super(match, joueursMatch, arbitre, listJoueurs, listArbitres, connection, mainFrame);
 	}
 
@@ -30,7 +31,7 @@ public class FormulaireMatchJFrame extends FormulaireInfosMatch {
 		JLabel labelJ1 = new JLabel(label);
 		labelJ1.setBounds(114, 235, 128, 22);
 		contentPane.add(labelJ1);
-		
+
 		label = "Joueur 2";
 		if (joueur2 != null) {
 			label = joueur2 + "";

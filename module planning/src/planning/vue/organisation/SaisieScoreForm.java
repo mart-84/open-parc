@@ -58,7 +58,7 @@ public class SaisieScoreForm extends JPanel {
 		contentPane.add(lblNewLabel);
 
 		createJoueurLabel();
-		
+
 		scoreJ1M1 = new JSpinner();
 		scoreJ1M1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		scoreJ1M1.setBounds(197, 218, 43, 20);

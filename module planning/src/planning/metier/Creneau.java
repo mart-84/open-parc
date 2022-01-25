@@ -4,7 +4,7 @@ public class Creneau {
 	private Jour jour;
 	private TrancheHoraire tranche;
 	private Court court;
-	
+
 	public Creneau(Jour jour, TrancheHoraire tranche, Court court) {
 		super();
 		this.jour = jour;
@@ -28,7 +28,5 @@ public class Creneau {
 	public String toString() {
 		return "Creneau -> jour : " + jour + ", tranche : " + tranche + ", court : " + court;
 	}
-	
-	
-	
+
 }

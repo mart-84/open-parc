@@ -117,8 +117,6 @@ public class ArbitreDaoSql implements IArbitreDAO {
 
 	@Override
 	public void addMatch(Match match) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
