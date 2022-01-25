@@ -24,8 +24,7 @@ class joueurController extends AbstractController
                 'Nationalite' => (string)$un_joueur->getnationalite(),
             ];
         }
-        echo json_encode($rows);
-        return new Response("");
+        return new Response(json_encode($rows));
     }
 
 

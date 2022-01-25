@@ -153,8 +153,7 @@ class triParJours extends AbstractController
                 'liste_match' => $un_billet['matchs'],
             ];
         }
-        echo json_encode($rows);
-        return new Response("");
+        return new Response(json_encode($rows));
     }
 
 

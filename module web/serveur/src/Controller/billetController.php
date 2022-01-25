@@ -46,8 +46,8 @@ class billetController extends AbstractController
                 'place' => (int)$un_billet['billet']->getPlace(),
             ];
         }
-        echo json_encode($rows);
-        return new Response("ok");
+        
+        return new Response(json_encode($rows));
 
 
     }
