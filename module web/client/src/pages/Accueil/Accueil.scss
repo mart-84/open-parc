@@ -22,13 +22,15 @@
 }
 
 .billet-info{
-    display: flex;
-    flex-direction: row;
-    gap: 100px;
-    justify-content: center
-
-
+    display: grid;
+    grid-template-columns: 2fr repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
+
+    
+.billet-prix { grid-area: 1 / 3 / 6 / 4; }
 
 .billet-match{
     display: flex;
@@ -36,14 +38,5 @@
     gap: 20px;
 }
 
-.billet-prix{
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-}
 
-.test{
-    display: flex;
-    flex-direction: row;
-    gap: 80px;
-}
+
