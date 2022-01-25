@@ -87,7 +87,7 @@ class billetController extends AbstractController
             $liste_matchs3[]=$un_match;
         }
         
-        $le_billet[]=['billet'=>$billet[0],'matchs'=>$liste_matchs3fix];
+        $le_billet[]=['billet'=>$billet[0],'matchs'=>$liste_matchs3];
         $rows=[];
         foreach($le_billet as $un_billet) {
             $rows[] = [
