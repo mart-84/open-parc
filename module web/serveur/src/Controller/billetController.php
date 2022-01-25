@@ -30,7 +30,16 @@ class billetController extends AbstractController
         return new Response("Done");
     }
 
+    public function getById(ManagerRegistry $doctrine, int $billetId) : Response
+    {
+        /** @var BilletRepository $billetRepository */
+        $billetRepository=$doctrine->getRepository(Billet::class);
+        $billet=$billetRepository->find($billetId);
+        
 
+
+        return new Response("Done");
+    }
     
 
     
