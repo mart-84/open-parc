@@ -18,8 +18,6 @@ class triParJoueur extends AbstractController
 {
     public function recupBilletJoueur(ManagerRegistry $doctrine, string $player) : Response
     {
-        
-
         /** @var BilletRepository $billetRepository */
         $billetRepository=$doctrine->getRepository(Billet::class);
         
@@ -101,8 +99,6 @@ class triParJoueur extends AbstractController
                     break;
             }
         }
-        
-        
         //recup tous les billets dont le jour/court correspond aux jours/court des matchs
         $billets=[];
         foreach($matchs as $un_match){
@@ -110,13 +106,7 @@ class triParJoueur extends AbstractController
                 $billets=$billetRepository->findByJourCourt($un_match->getJourid(),$un_match->getCourtid());
             }
         }
-        
-        
-        
-        
-        
         //var_dump($billets);die;
-        
         foreach($billets as $billet){
             $tous_les_billets['billet']=$billet;
             $court=$billet->getCourtid();
@@ -148,14 +138,6 @@ class triParJoueur extends AbstractController
                 'liste_match' => $un_billet['matchs'],
             ];
         }
-
         return new Response(json_encode($rows));
-
     }
-
-
-    
-
-    
-  
 }

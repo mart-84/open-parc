@@ -26,10 +26,4 @@ class joueurController extends AbstractController
         }
         return new Response(json_encode($rows));
     }
-
-
-    
-
-    
-  
 }
