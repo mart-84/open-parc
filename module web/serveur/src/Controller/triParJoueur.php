@@ -148,12 +148,9 @@ class triParJoueur extends AbstractController
                 'liste_match' => $un_billet['matchs'],
             ];
         }
-<<<<<<< HEAD
+
         return new Response(json_encode($rows));
-=======
-        echo json_encode($rows);
-        return new Response("");
->>>>>>> c60310c49f11b913f239dc625468eb307263e81e
+
     }
 
 
