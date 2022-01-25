@@ -1,7 +1,8 @@
-import PopUp from 'component/PopUp/PopUp';
+import BarreRecherche from 'component/BarreRecherche/BarreRecherche';
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import './Nav.scss';
+import { useState} from 'react';
 
 const Nav = () => {
     return (
@@ -15,8 +16,10 @@ const Nav = () => {
                 <NavLink exact to="/day/6" className={({ isActive }) => isActive ? "red" : "blue"}>Vendredi</NavLink>
                 <NavLink exact to="/day/7" className={({ isActive }) => isActive ? "red" : "blue"}>Samedi</NavLink>
                 <NavLink exact to="/day/8" className={({ isActive }) => isActive ? "red" : "blue"}>Dimanche</NavLink>
-                <PopUp/>
+                <BarreRecherche/>
             </nav>
+
+
         </div>
     );
 };

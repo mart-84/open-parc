@@ -1,0 +1,18 @@
+h1.admin {
+    text-align: center;
+}
+
+table {
+    width: 1000px;
+    margin: 25px auto auto;
+
+    & td {
+        padding: 20px;
+        text-align: center;
+    }
+}
+
+table tr td {
+    border: 1px solid black;
+}
+
