@@ -6,8 +6,8 @@ import java.sql.Connection;
 
 import javax.swing.JButton;
 
-import planning.dao.CreneauDaoSql;
 import planning.dao.interfacedao.ICreneauDAO;
+import planning.dao.sql.CreneauDaoSql;
 import planning.metier.Creneau;
 
 public class ReservationJButton extends JButton {

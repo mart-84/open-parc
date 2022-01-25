@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.organisation;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -29,11 +29,12 @@ import planning.vue.reservation.ReservationJoueurFrame;
 public class PlanningOrga extends JFrame {
 
 	private JPanel contentPane;
-	private final Dimension matchDimension = new Dimension(98, 42);
-	private final Dimension matchDoubleDimension = new Dimension(158, 42);
-	
+	private final Dimension matchDimension = new Dimension(140, 40);
+	private final Dimension matchDoubleDimension = new Dimension(200, 40);
+
 	private static MariaDbDataSource dataSourceDAO;
 	private static Connection connexionBD;
+	private JTabbedPane tabbedPane;
 
 	/**
 	 * Launch the application.
@@ -61,7 +62,17 @@ public class PlanningOrga extends JFrame {
 		createPanel();
 	}
 
-	
+	public int getSelectTab() {
+		return tabbedPane.getSelectedIndex();
+	}
+
+	public void updatePanel(int index) {
+		this.revalidate();
+		this.repaint();
+		this.createPanel();
+		this.tabbedPane.setSelectedIndex(index);
+	}
+
 	private void createPanel() {
 		setTitle("Planning - Open Parc Lyon");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,17 +81,17 @@ public class PlanningOrga extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		
+
 		JLabel title = new JLabel("Organisation des matchs");
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		contentPane.add(title);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
-		
-		createMatchs(tabbedPane);
+
+		createMatchs();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,12 +100,12 @@ public class PlanningOrga extends JFrame {
 			}
 		});
 	}
-	
-	private void createMatchs(JTabbedPane tabbedPane) {
+
+	private void createMatchs() {
 		JPanel qualificationPanel = new JPanel();
 		tabbedPane.addTab("Tournoi Qualification", null, qualificationPanel, null);
 		qualificationPanel.setLayout(null);
-		
+
 		List<MatchComponentData> matchComponentDataList = new ArrayList<MatchComponentData>();
 		matchComponentDataList.add(new MatchComponentData(1, new Point(278, 187), matchDimension));
 		matchComponentDataList.add(new MatchComponentData(2, new Point(278, 265), matchDimension));
@@ -108,17 +119,17 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(10, new Point(749, 369), matchDimension));
 		matchComponentDataList.add(new MatchComponentData(11, new Point(749, 447), matchDimension));
 		matchComponentDataList.add(new MatchComponentData(12, new Point(958, 408), matchDimension));
-	
-		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchComponent();
+
+		for (MatchComponentData matchComponentData : matchComponentDataList) {
+			MatchComponent matchC = new MatchComponent(connexionBD, this);
 			matchComponentData.setUpMatchComponent(matchC);
 			qualificationPanel.add(matchC);
 		}
-		
+
 		JPanel tournoiSimplePanel = new JPanel();
 		tabbedPane.addTab("Tournoi Simple", null, tournoiSimplePanel, null);
 		tournoiSimplePanel.setLayout(null);
-		
+
 		matchComponentDataList = new ArrayList<MatchComponentData>();
 		matchComponentDataList.add(new MatchComponentData(101, new Point(38, 46), matchDimension));
 		matchComponentDataList.add(new MatchComponentData(102, new Point(38, 134), matchDimension));
@@ -151,46 +162,46 @@ public class PlanningOrga extends JFrame {
 		matchComponentDataList.add(new MatchComponentData(129, new Point(490, 336), matchDimension));
 		matchComponentDataList.add(new MatchComponentData(130, new Point(765, 336), matchDimension));
 		matchComponentDataList.add(new MatchComponentData(131, new Point(623, 201), matchDimension));
-                  
-		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchComponent();
+
+		for (MatchComponentData matchComponentData : matchComponentDataList) {
+			MatchComponent matchC = new MatchComponent(connexionBD, this);
 			matchComponentData.setUpMatchComponent(matchC);
 			tournoiSimplePanel.add(matchC);
 		}
-		
+
 		JLabel theBigMatchLabel = new JLabel("The Big Match");
 		theBigMatchLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		theBigMatchLabel.setBounds(623, 158, 108, 32);
 		tournoiSimplePanel.add(theBigMatchLabel);
-		 
+
 		JPanel tournoiDoublePanel = new JPanel();
 		tabbedPane.addTab("Tournoi Double", null, tournoiDoublePanel, null);
 		tournoiDoublePanel.setLayout(null);
-		
+
 		matchComponentDataList = new ArrayList<MatchComponentData>();
-		matchComponentDataList.add(new MatchComponentData(201, new Point(100, 120), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(202, new Point(100, 279), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(203, new Point(100, 438), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(204, new Point(100, 597), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(205, new Point(1134, 120), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(206, new Point(1134, 279), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(207, new Point(1134, 438), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(208, new Point(1134, 597), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(209, new Point(330, 226), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(210, new Point(330, 491), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(211, new Point(887, 226), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(212, new Point(887, 491), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(213, new Point(479, 358), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(214, new Point(726, 358), matchDoubleDimension));
-		matchComponentDataList.add(new MatchComponentData(215, new Point(612, 184), matchDoubleDimension));
-		
-		for(MatchComponentData matchComponentData : matchComponentDataList) {
-			MatchComponent matchC = new MatchDoubleComponent();
+		matchComponentDataList.add(new MatchComponentData(201, new Point(60, 120), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(202, new Point(60, 279), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(203, new Point(60, 438), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(204, new Point(60, 597), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(205, new Point(1094, 120), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(206, new Point(1094, 279), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(207, new Point(1094, 438), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(208, new Point(1094, 597), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(209, new Point(290, 226), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(210, new Point(290, 491), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(211, new Point(847, 226), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(212, new Point(847, 491), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(213, new Point(439, 358), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(214, new Point(686, 358), matchDoubleDimension));
+		matchComponentDataList.add(new MatchComponentData(215, new Point(572, 184), matchDoubleDimension));
+
+		for (MatchComponentData matchComponentData : matchComponentDataList) {
+			MatchComponent matchC = new MatchDoubleComponent(connexionBD, this);
 			matchComponentData.setUpMatchComponent(matchC);
 			tournoiDoublePanel.add(matchC);
 		}
 	}
-	
+
 	private void formWindowClosing(WindowEvent evt) {
 		quitter();
 	}

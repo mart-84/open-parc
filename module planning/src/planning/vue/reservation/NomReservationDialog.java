@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import planning.dao.ReservationDaoSql;
 import planning.dao.interfacedao.IReservationDAO;
+import planning.dao.sql.ReservationDaoSql;
 import planning.metier.Creneau;
 import planning.metier.Reservation;
 

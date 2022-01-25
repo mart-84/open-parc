@@ -6,12 +6,11 @@
 
 package planning.metier;
 
-
 public class Reservation {
 	private int reservationId;
 	private Creneau creneau;
 	private String nomJoueur;
-	
+
 	public Reservation(Creneau creneau, String nomJoueur) {
 		super();
 		this.creneau = creneau;
@@ -29,11 +28,11 @@ public class Reservation {
 	public Court getCourt() {
 		return creneau.getCourt();
 	}
-	
+
 	public Jour getJour() {
 		return creneau.getJour();
 	}
-	
+
 	public TrancheHoraire getTranche() {
 		return creneau.getTranche();
 	}
@@ -41,7 +40,5 @@ public class Reservation {
 	public String getNomJoueur() {
 		return nomJoueur;
 	}
-	
-	
 
 }

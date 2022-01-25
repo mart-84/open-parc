@@ -1,4 +1,4 @@
-package planning.vue;
+package planning.vue.organisation;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -7,7 +7,7 @@ public class MatchComponentData {
 	private int id;
 	private Point point;
 	private Dimension dim;
-	
+
 	public MatchComponentData(int id, Point point, Dimension dim) {
 		super();
 		this.id = id;
@@ -19,7 +19,7 @@ public class MatchComponentData {
 		matchC.setLocation(point);
 		matchC.setSize(dim);
 		matchC.setIdMatch(id);
+		matchC.createPanel();
 	}
-	
-	
+
 }
