@@ -36,14 +36,25 @@ class billetController extends AbstractController
         $billetRepository=$doctrine->getRepository(Billet::class);
         $billet=$billetRepository->findById($billetId);
         
+         /** @var MatchsRepository $matchRepository */
+         $matchRepository=$doctrine->getRepository(Matchs::class);
+         $day=$billet->getJourId();
+         $court=$billet->getCourtId();
+         $matchs=$matchRepository->findByDayCourt($day,$court);
+        
+        
+        $le_billet=[];
+        $le_billet['billet']=$billet;
+        $le_billet['matchs']=$matchs;
         $rows=[];
-        foreach($billet as $un_billet) {
+        foreach($le_billet as $un_billet) {
             $rows[] = [
-                'billetid' => (int)$un_billet->getBilletId(),
-                'jouriD' => (int)$un_billet->getJourId(),
-                'courtid' => (int)$un_billet->getCourtId(),
-                'prix' => (int)$un_billet->getPrix(),
-                'place' => (int)$un_billet->getPlace(),
+                'billetid' => (int)$un_billet['billet']->getBilletId(),
+                'jouriD' => (int)$un_billet['billet']->getJourId(),
+                'courtid' => (int)$un_billet['billet']->getCourtId(),
+                'prix' => (int)$un_billet['billet']->getPrix(),
+                'place' => (int)$un_billet['billet']->getPlace(),
+                'liste_match' => $un_billet['matchs'],
             ];
         }
         return new Response(json_encode($rows));

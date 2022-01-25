@@ -47,6 +47,19 @@ class MatchsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByDayCourt($value1,$value2)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.jourid = :val1')
+            ->andWhere('b.courtid = :val2')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
+            ->orderBy('b.matchid','ASC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 
     /*
