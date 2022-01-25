@@ -54,8 +54,10 @@ public abstract class FormulaireInfosMatch extends JFrame {
 
 	public FormulaireInfosMatch(Match match, List<Joueur> joueursMatch, Arbitre arbitre, List<Joueur> listJoueurs,
 			List<Arbitre> listArbitres, Connection connection, PlanningOrga mainFrame) {
-		if (joueursMatch != null && joueursMatch.size() == 2) {
+		if (joueursMatch != null && joueursMatch.size() > 0) {
 			joueur1 = joueursMatch.get(0);
+		}
+		if (joueursMatch != null && joueursMatch.size() > 1) {
 			joueur2 = joueursMatch.get(1);
 		}
 		this.mainFrame = mainFrame;
@@ -157,9 +159,37 @@ public abstract class FormulaireInfosMatch extends JFrame {
 
 	private void setupScoreButton() {
 		JButton boutonScore = new JButton("Saisir le score");
-		// TODO ajouter le traitement du score
+		setScoreButtonAction(boutonScore);
 		boutonScore.setBounds(417, 71, 125, 28);
 		contentPane.add(boutonScore);
+	}
+
+	protected void setScoreButtonAction(JButton button) {
+		if (joueur1 != null && joueur2 != null) {
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					contentPane.removeAll();
+					contentPane.repaint();
+					SaisieScoreForm form = new SaisieScoreForm(match, joueur1, joueur2, matchDAO, joueurDAO,
+							FormulaireInfosMatch.this, mainFrame);
+					form.setSize(490, 439);
+					setSize(490, 460);
+					contentPane.add(form);
+				}
+
+			});
+		} else {
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane,
+							"Impossible de saisir le score d'un match dont les joueurs ne sont pas connus",
+							"Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+				}
+			});
+		}
 	}
 
 	private void setupFormCourt() {

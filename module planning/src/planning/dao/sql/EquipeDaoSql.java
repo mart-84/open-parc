@@ -149,4 +149,25 @@ public class EquipeDaoSql implements IEquipeDAO {
 		return listEquipe;
 	}
 
+	@Override
+	public boolean isGagnant(Equipe equipe, Match match) {
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		String query = "SELECT gagnantid FROM matchs WHERE matchid = ?";
+		boolean isGagnant = false;
+
+		try {
+			stmt = connexionBD.prepareStatement(query);
+			stmt.setInt(1, match.getMatchId());
+			rset = stmt.executeQuery();
+
+			if (rset.next()) {
+				isGagnant = rset.getInt(1) == equipe.getEquipeId();
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(MatchDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return isGagnant;
+	}
+
 }

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -73,15 +74,21 @@ public class MatchComponent extends JPanel {
 	protected void addOnClickListener(Connection connection, PlanningOrga mainFrame) {
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				FormulaireInfosMatch form;
-				if (matchDAO.isPremierTour(match)) {
-					form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
-							connection, mainFrame);
+				if (!matchDAO.isTermine(match)) {
+					FormulaireInfosMatch form;
+					if (matchDAO.isPremierTour(match)) {
+						form = new FormulaireMatchAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs,
+								listArbitres, connection, mainFrame);
+					} else {
+						form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
+								connection, mainFrame);
+					}
+					form.setVisible(true);
 				} else {
-					form = new FormulaireMatchJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
-							connection, mainFrame);
+					JOptionPane.showMessageDialog(MatchComponent.this,
+							"Vous ne pouvez plus modifier les informations d'un match déjà terminé",
+							"Action Impossible", JOptionPane.WARNING_MESSAGE);
 				}
-				form.setVisible(true);
 			}
 		});
 	}
@@ -92,33 +99,37 @@ public class MatchComponent extends JPanel {
 
 		String joueur1 = "Joueur 1";
 		String joueur2 = "Joueur 2";
+		int style1 = Font.PLAIN, style2 = Font.PLAIN;
 
 		if (joueursMatch.size() > 0) {
 			joueur1 = joueursMatch.get(0).getNom();
-			joueur2 = joueursMatch.get(1).getNom();
+			if (joueurDAO.isGagnant(joueursMatch.get(0), match)) {
+				style1 = Font.BOLD;
+			}
+		} else {
+			style1 = Font.ITALIC;
 		}
-
-		int style = Font.PLAIN;
-		if (joueur1.equals("Joueur 1")) {
-			style = Font.ITALIC;
+		if (joueursMatch.size() > 1) {
+			joueur2 = joueursMatch.get(1).getNom();
+			if (joueurDAO.isGagnant(joueursMatch.get(1), match)) {
+				style2 = Font.BOLD;
+			}
+		} else {
+			style2 = Font.ITALIC;
 		}
 		JLabel Joueur1Label = new JLabel(joueur1);
-		Joueur1Label.setFont(new Font("Tahoma", style, 12));
+		Joueur1Label.setFont(new Font("Tahoma", style1, 12));
 		Joueur1Label.setBounds(5, 0, 98, 21);
 		add(Joueur1Label);
 
-		style = Font.PLAIN;
-		if (joueur2.equals("Joueur 2")) {
-			style = Font.ITALIC;
-		}
 		JLabel Joueur2Label = new JLabel(joueur2);
-		Joueur2Label.setFont(new Font("Tahoma", style, 12));
+		Joueur2Label.setFont(new Font("Tahoma", style2, 12));
 		Joueur2Label.setBounds(5, 20, 98, 21);
 		add(Joueur2Label);
 
 		addJourHeure(77);
 	}
-	
+
 	protected void addJourHeure(int pos) {
 		Jour jour = match.getCreneau().getJour();
 		String jourString = "Date";

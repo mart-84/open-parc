@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
 import planning.dao.interfacedao.IEquipeDAO;
@@ -18,13 +19,13 @@ public class MatchDoubleComponent extends MatchComponent {
 
 	private List<Equipe> listEquipeMatch;
 	private IEquipeDAO equipeDAO;
-	
+
 	public MatchDoubleComponent(Connection connection, PlanningOrga mainFrame) {
 		super(connection, mainFrame);
 		this.equipeDAO = new EquipeDaoSql();
 		equipeDAO.setConnection(connection);
 	}
-	
+
 	protected void setData() {
 		match = matchDAO.getById(this.idMatch);
 		listArbitres = arbitreDAO.getArbitres();
@@ -38,15 +39,21 @@ public class MatchDoubleComponent extends MatchComponent {
 	protected void addOnClickListener(Connection connection, PlanningOrga mainFrame) {
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				FormulaireInfosMatch form;
-				if (matchDAO.isPremierTour(match)) {
-					form = new FormulaireMatchDoubleAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs,
-							listArbitres, connection, mainFrame);
+				if (!matchDAO.isTermine(match)) {
+					FormulaireInfosMatch form;
+					if (matchDAO.isPremierTour(match)) {
+						form = new FormulaireMatchDoubleAvecJoueurJFrame(match, joueursMatch, arbitre, listJoueurs,
+								listArbitres, connection, mainFrame);
+					} else {
+						form = new FormulaireMatchDoubleJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
+								connection, mainFrame);
+					}
+					form.setVisible(true);
 				} else {
-					form = new FormulaireMatchDoubleJFrame(match, joueursMatch, arbitre, listJoueurs, listArbitres,
-							connection, mainFrame);
+					JOptionPane.showMessageDialog(MatchDoubleComponent.this,
+							"Vous ne pouvez plus modifier les informations d'un match déjà terminé",
+							"Action Impossible", JOptionPane.WARNING_MESSAGE);
 				}
-				form.setVisible(true);
 			}
 		});
 	}
@@ -58,30 +65,35 @@ public class MatchDoubleComponent extends MatchComponent {
 		String joueur1 = "Equipe 1";
 		String joueur2 = "Equipe 2";
 
+		int style1 = Font.PLAIN, style2 = Font.PLAIN;
 		if (listEquipeMatch.size() > 0) {
 			joueur1 = listEquipeMatch.get(0) + "";
+			if (equipeDAO.isGagnant(listEquipeMatch.get(0), match)) {
+				style1 = Font.BOLD;
+			}
+		} else {
+			style1 = Font.ITALIC;
+		}
+		if (listEquipeMatch.size() > 1) {
 			joueur2 = listEquipeMatch.get(1) + "";
+			if (equipeDAO.isGagnant(listEquipeMatch.get(1), match)) {
+				style2 = Font.BOLD;
+			}
+		} else {
+			style2 = Font.ITALIC;
 		}
 
-		int style = Font.PLAIN;
-		if (joueur1.equals("Equipe 1")) {
-			style = Font.ITALIC;
-		}
 		JLabel Joueur1Label = new JLabel(joueur1);
-		Joueur1Label.setFont(new Font("Tahoma", style, 12));
+		Joueur1Label.setFont(new Font("Tahoma", style1, 12));
 		Joueur1Label.setBounds(5, 0, 200, 21);
 		add(Joueur1Label);
 
-		style = Font.PLAIN;
-		if (joueur2.equals("Equipe 2")) {
-			style = Font.ITALIC;
-		}
 		JLabel Joueur2Label = new JLabel(joueur2);
-		Joueur2Label.setFont(new Font("Tahoma", style, 12));
+		Joueur2Label.setFont(new Font("Tahoma", style2, 12));
 		Joueur2Label.setBounds(5, 20, 200, 21);
 		add(Joueur2Label);
 
-		addJourHeure(97);
+		addJourHeure(137);
 	}
 
 }

@@ -11,7 +11,7 @@ public class Arbitre {
 	private String prenom;
 	private String categorie;
 	private String nationalite;
-	
+
 	public Arbitre(int arbitreId, String nom, String prenom, String categorie, String nationalite) {
 		super();
 		this.arbitreId = arbitreId;
@@ -40,7 +40,7 @@ public class Arbitre {
 	public String getNationalite() {
 		return nationalite;
 	}
-	
+
 	public String toString() {
 		return nom;
 	}
@@ -56,9 +56,5 @@ public class Arbitre {
 		Arbitre other = (Arbitre) obj;
 		return arbitreId == other.arbitreId;
 	}
-	
-	
-	
-	
-	
+
 }

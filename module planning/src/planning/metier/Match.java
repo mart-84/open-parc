@@ -45,4 +45,7 @@ public class Match {
 		return "Match -> matchId : " + matchId + ", typeTournoiId : " + typeTournoiId + ", creneau : " + creneau;
 	}
 
+	public boolean isQualif() {
+		return typeTournoiId == 1;
+	}
 }

@@ -21,7 +21,7 @@ public class ReservationDaoSql implements IReservationDAO {
 		try {
 			this.connexionBD = dataSource.getConnection();
 		} catch (SQLException ex) {
-            Logger.getLogger(ReservationDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ReservationDaoSql.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 	}
@@ -34,23 +34,23 @@ public class ReservationDaoSql implements IReservationDAO {
 
 	@Override
 	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void addReservation(Reservation reserv) {
 		PreparedStatement stmt;
-        try {
-        	stmt = connexionBD.prepareStatement("INSERT INTO reservation(courtId, jourId, trancheId, nomJoueur) VALUES (?, ?, ?, ?)");
-        	stmt.setInt(1, reserv.getCourt().getCourtId());
-        	stmt.setInt(2, reserv.getJour().getJourId());
-        	stmt.setInt(3, reserv.getTranche().getTrancheId());
-        	stmt.setString(4, reserv.getNomJoueur());
-        	stmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ReservationDaoSql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+		try {
+			stmt = connexionBD.prepareStatement(
+					"INSERT INTO reservation(courtId, jourId, trancheId, nomJoueur) VALUES (?, ?, ?, ?)");
+			stmt.setInt(1, reserv.getCourt().getCourtId());
+			stmt.setInt(2, reserv.getJour().getJourId());
+			stmt.setInt(3, reserv.getTranche().getTrancheId());
+			stmt.setString(4, reserv.getNomJoueur());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(ReservationDaoSql.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 }

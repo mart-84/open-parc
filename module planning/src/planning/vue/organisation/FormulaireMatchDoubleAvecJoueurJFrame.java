@@ -7,8 +7,10 @@ import java.sql.Connection;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import planning.dao.interfacedao.IEquipeDAO;
@@ -21,7 +23,6 @@ import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
 import planning.metier.TrancheHoraire;
-import planning.metier.TypeDeTournoi;
 
 public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJoueurJFrame {
 
@@ -50,17 +51,46 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 	}
 
 	@Override
+	protected void setScoreButtonAction(JButton button) {
+		if (equipe1 != null && equipe2 != null) {
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					contentPane.removeAll();
+					contentPane.repaint();
+					SaisieScoreForm form = new SaisieScoreDoubleForm(match, equipe1, equipe2, matchDAO, joueurDAO,
+							FormulaireMatchDoubleAvecJoueurJFrame.this, mainFrame);
+					form.setSize(490, 439);
+					setSize(490, 460);
+					contentPane.add(form);
+				}
+
+			});
+		} else {
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane,
+							"Impossible de saisir le score d'un match dont les joueurs ne sont pas connus",
+							"Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+				}
+			});
+		}
+	}
+
+	@Override
 	protected void setupFormJoueurLabel() {
 		JLabel lblNewLabel_1_2 = new JLabel("Equipe 1");
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2.setBounds(21, 237, 70, 14);
+		lblNewLabel_1_2.setBounds(21, 237, 70, 18);
 		contentPane.add(lblNewLabel_1_2);
 
 		JLabel lblNewLabel_1_3 = new JLabel("Equipe 2");
 		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_3.setBounds(254, 237, 64, 14);
+		lblNewLabel_1_3.setBounds(254, 237, 64, 18);
 		contentPane.add(lblNewLabel_1_3);
 	}
 
@@ -90,16 +120,6 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("\nPour le match " + match.getMatchId() + " du tournoi "
-						+ TypeDeTournoi.getById(match.getTypeTournoiId())
-						+ ", il faut enregistrer les données suivantes");
-				System.out.println(comboBoxJour.getSelectedItem());
-				System.out.println(comboBoxHeure.getSelectedItem());
-				System.out.println(comboBoxCourt.getSelectedItem());
-				System.out.println(comboBoxArbitre.getSelectedItem());
-				System.out.println(comboBoxE1.getSelectedItem());
-				System.out.println(comboBoxE2.getSelectedItem());
-
 				Jour jour = (Jour) comboBoxJour.getSelectedItem();
 				TrancheHoraire tranche = (TrancheHoraire) comboBoxHeure.getSelectedItem();
 				Court court = (Court) comboBoxCourt.getSelectedItem();
@@ -110,7 +130,7 @@ public class FormulaireMatchDoubleAvecJoueurJFrame extends FormulaireMatchAvecJo
 				if (verifierDonnees()) {
 					// si toutes les contraintes sont vérifiées
 					persisterDonnees();
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					dispose();
 				}
 			}

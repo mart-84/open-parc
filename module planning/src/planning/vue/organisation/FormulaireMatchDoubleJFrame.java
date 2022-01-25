@@ -19,7 +19,6 @@ import planning.metier.Joueur;
 import planning.metier.Jour;
 import planning.metier.Match;
 import planning.metier.TrancheHoraire;
-import planning.metier.TypeDeTournoi;
 
 public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 
@@ -37,8 +36,10 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 		equipeDAO = new EquipeDaoSql();
 		equipeDAO.setConnection(connection);
 		List<Equipe> listEquipeMatch = equipeDAO.getByMatch(match);
-		if (listEquipeMatch.size() == 2) {
+		if (listEquipeMatch.size() > 0) {
 			equipe1 = listEquipeMatch.get(0);
+		}
+		if (listEquipeMatch.size() > 1) {
 			equipe2 = listEquipeMatch.get(1);
 		}
 	}
@@ -48,13 +49,13 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 		JLabel lblNewLabel_1_2 = new JLabel("Equipe 1");
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2.setBounds(21, 237, 70, 14);
+		lblNewLabel_1_2.setBounds(21, 237, 70, 18);
 		contentPane.add(lblNewLabel_1_2);
 
 		JLabel lblNewLabel_1_3 = new JLabel("Equipe 2");
 		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_3.setBounds(254, 237, 64, 14);
+		lblNewLabel_1_3.setBounds(254, 237, 64, 18);
 		contentPane.add(lblNewLabel_1_3);
 	}
 
@@ -83,16 +84,6 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("\nPour le match " + match.getMatchId() + " du tournoi "
-						+ TypeDeTournoi.getById(match.getTypeTournoiId())
-						+ ", il faut enregistrer les données suivantes");
-				System.out.println(comboBoxJour.getSelectedItem());
-				System.out.println(comboBoxHeure.getSelectedItem());
-				System.out.println(comboBoxCourt.getSelectedItem());
-				System.out.println(comboBoxArbitre.getSelectedItem());
-				System.out.println(joueur1);
-				System.out.println(joueur2);
-
 				Jour jour = (Jour) comboBoxJour.getSelectedItem();
 				TrancheHoraire tranche = (TrancheHoraire) comboBoxHeure.getSelectedItem();
 				Court court = (Court) comboBoxCourt.getSelectedItem();
@@ -101,7 +92,7 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 				if (verifierDonnees()) {
 					// si toutes les contraintes sont vérifiées
 					persisterDonnees();
-					mainFrame.updatePanel();
+					mainFrame.updatePanel(mainFrame.getSelectTab());
 					dispose();
 				}
 			}
@@ -112,11 +103,13 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 		boolean isOk = true;
 		if (equipe1 != null) {
 			isOk = !arbitre.getNationalite().toLowerCase().equals(equipe1.getJoueur1().getNationalite().toLowerCase())
-				&& !arbitre.getNationalite().toLowerCase().equals(equipe1.getJoueur2().getNationalite().toLowerCase());
+					&& !arbitre.getNationalite().toLowerCase()
+							.equals(equipe1.getJoueur2().getNationalite().toLowerCase());
 		}
 		if (equipe2 != null) {
-			isOk =  !arbitre.getNationalite().toLowerCase().equals(equipe2.getJoueur1().getNationalite().toLowerCase())
-			&& !arbitre.getNationalite().toLowerCase().equals(equipe2.getJoueur2().getNationalite().toLowerCase());
+			isOk = !arbitre.getNationalite().toLowerCase().equals(equipe2.getJoueur1().getNationalite().toLowerCase())
+					&& !arbitre.getNationalite().toLowerCase()
+							.equals(equipe2.getJoueur2().getNationalite().toLowerCase());
 		}
 		return isOk;
 	}
@@ -125,7 +118,7 @@ public class FormulaireMatchDoubleJFrame extends FormulaireMatchJFrame {
 		boolean isOk = true;
 		if (equipe1 != null) {
 			isOk = joueurDAO.checkJoueurDispo(equipe1.getJoueur1(), match.getCreneau(), match)
-					&& joueurDAO.checkJoueurDispo(equipe1.getJoueur2(), match.getCreneau(), match); 
+					&& joueurDAO.checkJoueurDispo(equipe1.getJoueur2(), match.getCreneau(), match);
 		}
 		if (equipe2 != null) {
 			isOk = isOk && joueurDAO.checkJoueurDispo(equipe2.getJoueur1(), match.getCreneau(), match)
